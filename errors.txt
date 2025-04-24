@@ -1,0 +1,10 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "game/script.rpy", line 28: expected statement.
+    zoom 0.23 xalign 0.0 yalign 0.1 xoffset -30
+          ^
+
+Ren'Py Version: Ren'Py 8.3.7.25031702
+Thu Apr 24 12:17:15 2025

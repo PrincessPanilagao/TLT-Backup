@@ -1,0 +1,70 @@
+﻿I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+  File "game/script.rpy", line 54, in script
+    call screen tutorial_openletter
+  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "game/script.rpy", line 74, in execute
+    screen tutorial_openletter:
+  File "game/script.rpy", line 74, in execute
+    screen tutorial_openletter:
+  File "game/script.rpy", line 76, in execute
+    add "images/objectives/objective letter.png" zoom 0.23 xalign 0.0 yalign 0.1 xoffset -30 at slide_in_from_left
+  File "game/script.rpy", line 76, in keywords
+    add "images/objectives/objective letter.png" zoom 0.23 xalign 0.0 yalign 0.1 xoffset -30 at slide_in_from_left
+  File "game/script.rpy", line 76, in <module>
+    add "images/objectives/objective letter.png" zoom 0.23 xalign 0.0 yalign 0.1 xoffset -30 at slide_in_from_left
+NameError: name 'slide_in_from_left' is not defined
+
+-- Full Traceback ------------------------------------------------------------
+
+Full traceback:
+  File "game/script.rpy", line 54, in script
+    call screen tutorial_openletter
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\ast.py", line 1987, in execute
+    self.call("execute")
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\ast.py", line 1966, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\statements.py", line 374, in call
+    return method(parsed, *args, **kwargs)
+  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\exports\statementexports.py", line 345, in call_screen
+    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\ui.py", line 301, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\core.py", line 2218, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\core.py", line 2748, in interact_core
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\screen.py", line 480, in visit_all
+    callback(self)
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\core.py", line 2748, in <lambda>
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\screen.py", line 491, in per_interact
+    self.update()
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\screen.py", line 700, in update
+    self.screen.function(**self.scope)
+  File "game/script.rpy", line 74, in execute
+    screen tutorial_openletter:
+  File "game/script.rpy", line 74, in execute
+    screen tutorial_openletter:
+  File "game/script.rpy", line 76, in execute
+    add "images/objectives/objective letter.png" zoom 0.23 xalign 0.0 yalign 0.1 xoffset -30 at slide_in_from_left
+  File "game/script.rpy", line 76, in keywords
+    add "images/objectives/objective letter.png" zoom 0.23 xalign 0.0 yalign 0.1 xoffset -30 at slide_in_from_left
+  File "game/script.rpy", line 76, in <module>
+    add "images/objectives/objective letter.png" zoom 0.23 xalign 0.0 yalign 0.1 xoffset -30 at slide_in_from_left
+NameError: name 'slide_in_from_left' is not defined
+
+Windows-10-10.0.22631 AMD64
+Ren'Py 8.3.7.25031702
+The Last Toast 1.0
+Thu Apr 24 12:16:31 2025
