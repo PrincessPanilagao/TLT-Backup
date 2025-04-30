@@ -151,7 +151,7 @@ style say_label:
     properties gui.text_properties("name", accent=True)
     color "#775C25"
     xalign 0.45
-    yalign 0.5
+    yalign 0.48
 
 style say_dialogue:
     properties gui.text_properties("dialogue")
@@ -174,8 +174,10 @@ style say_dialogue:
 screen input(prompt):
     style_prefix "input"
 
-    window:
-
+    frame:
+        background None
+        xalign 0.48
+        yalign 0.6
         vbox:
             xanchor gui.dialogue_text_xalign
             xpos gui.dialogue_xpos
@@ -194,6 +196,10 @@ style input_prompt:
 style input:
     xalign gui.dialogue_text_xalign
     xmaximum gui.dialogue_width
+    color '#775C25'
+    font 'fonts/Sora-Regular.ttf'
+    size 30
+
 
 
 ## Choice screen ###############################################################
@@ -253,8 +259,8 @@ screen quick_menu():
             textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
             textbutton _("Auto") action Preference("auto-forward", "toggle")
             textbutton _("Save") action ShowMenu('save')
-            textbutton _("Q.Save") action QuickSave()
-            textbutton _("Q.Load") action QuickLoad()
+            # textbutton _("Q.Save") action QuickSave()
+            # textbutton _("Q.Load") action QuickLoad()
             textbutton _("Prefs") action ShowMenu('preferences')
 
 
@@ -273,6 +279,9 @@ style quick_button:
 
 style quick_button_text:
     properties gui.text_properties("quick_button")
+    font 'fonts/Sora-Regular.ttf'
+    idle_color '#DAAE60'
+    hover_color '#F1E293'
 
 
 ################################################################################
@@ -589,134 +598,134 @@ screen save():
     use file_slots(_("Save"))
 
 
-screen load():
+# screen load():
 
-    tag menu
+#     tag menu
 
-    use file_slots(_("Load"))
-
-
-screen file_slots(title):
-
-    default page_name_value = FilePageNameInputValue(pattern=_("Page {}"), auto=_("Automatic saves"), quick=_("Quick saves"))
-
-    use game_menu(title):
-
-        fixed:
-
-            ## This ensures the input will get the enter event before any of the
-            ## buttons do.
-            order_reverse True
-
-            ## The page name, which can be edited by clicking on a button.
-            button:
-                style "page_label"
-
-                key_events True
-                xalign 0.5
-                action page_name_value.Toggle()
-
-                input:
-                    style "page_label_text"
-                    value page_name_value
-
-            ## The grid of file slots.
-            grid gui.file_slot_cols gui.file_slot_rows:
-                style_prefix "slot"
-
-                xalign 0.5
-                yalign 0.5
-
-                spacing gui.slot_spacing
-
-                for i in range(gui.file_slot_cols * gui.file_slot_rows):
-
-                    $ slot = i + 1
-
-                    button:
-                        action FileAction(slot)
-
-                        has vbox
-
-                        add FileScreenshot(slot) xalign 0.5
-
-                        text FileTime(slot, format=_("{#file_time}%A, %B %d %Y, %H:%M"), empty=_("empty slot")):
-                            style "slot_time_text"
-
-                        text FileSaveName(slot):
-                            style "slot_name_text"
-
-                        key "save_delete" action FileDelete(slot)
-
-            ## Buttons to access other pages.
-            vbox:
-                style_prefix "page"
-
-                xalign 0.5
-                yalign 1.0
-
-                hbox:
-                    xalign 0.5
-
-                    spacing gui.page_spacing
-
-                    textbutton _("<") action FilePagePrevious()
-                    key "save_page_prev" action FilePagePrevious()
-
-                    if config.has_autosave:
-                        textbutton _("{#auto_page}A") action FilePage("auto")
-
-                    if config.has_quicksave:
-                        textbutton _("{#quick_page}Q") action FilePage("quick")
-
-                    ## range(1, 10) gives the numbers from 1 to 9.
-                    for page in range(1, 10):
-                        textbutton "[page]" action FilePage(page)
-
-                    textbutton _(">") action FilePageNext()
-                    key "save_page_next" action FilePageNext()
-
-                if config.has_sync:
-                    if CurrentScreenName() == "save":
-                        textbutton _("Upload Sync"):
-                            action UploadSync()
-                            xalign 0.5
-                    else:
-                        textbutton _("Download Sync"):
-                            action DownloadSync()
-                            xalign 0.5
+#     use file_slots(_("Load"))
 
 
-style page_label is gui_label
-style page_label_text is gui_label_text
-style page_button is gui_button
-style page_button_text is gui_button_text
+# screen file_slots(title):
 
-style slot_button is gui_button
-style slot_button_text is gui_button_text
-style slot_time_text is slot_button_text
-style slot_name_text is slot_button_text
+#     default page_name_value = FilePageNameInputValue(pattern=_("Page {}"), auto=_("Automatic saves"), quick=_("Quick saves"))
 
-style page_label:
-    xpadding 75
-    ypadding 5
+#     use game_menu(title):
 
-style page_label_text:
-    textalign 0.5
-    layout "subtitle"
-    hover_color gui.hover_color
+#         fixed:
 
-style page_button:
-    properties gui.button_properties("page_button")
+#             ## This ensures the input will get the enter event before any of the
+#             ## buttons do.
+#             order_reverse True
 
-style page_button_text:
-    properties gui.text_properties("page_button")
+#             ## The page name, which can be edited by clicking on a button.
+#             button:
+#                 style "page_label"
 
-style slot_button:
-    properties gui.button_properties("slot_button")
+#                 key_events True
+#                 xalign 0.5
+#                 action page_name_value.Toggle()
 
-style slot_button_text:
-    properties gui.text_properties("slot_button")
+#                 input:
+#                     style "page_label_text"
+#                     value page_name_value
+
+#             ## The grid of file slots.
+#             grid gui.file_slot_cols gui.file_slot_rows:
+#                 style_prefix "slot"
+
+#                 xalign 0.5
+#                 yalign 0.5
+
+#                 spacing gui.slot_spacing
+
+#                 for i in range(gui.file_slot_cols * gui.file_slot_rows):
+
+#                     $ slot = i + 1
+
+#                     button:
+#                         action FileAction(slot)
+
+#                         has vbox
+
+#                         add FileScreenshot(slot) xalign 0.5
+
+#                         text FileTime(slot, format=_("{#file_time}%A, %B %d %Y, %H:%M"), empty=_("empty slot")):
+#                             style "slot_time_text"
+
+#                         text FileSaveName(slot):
+#                             style "slot_name_text"
+
+#                         key "save_delete" action FileDelete(slot)
+
+#             ## Buttons to access other pages.
+#             vbox:
+#                 style_prefix "page"
+
+#                 xalign 0.5
+#                 yalign 1.0
+
+#                 hbox:
+#                     xalign 0.5
+
+#                     spacing gui.page_spacing
+
+#                     textbutton _("<") action FilePagePrevious()
+#                     key "save_page_prev" action FilePagePrevious()
+
+#                     if config.has_autosave:
+#                         textbutton _("{#auto_page}A") action FilePage("auto")
+
+#                     if config.has_quicksave:
+#                         textbutton _("{#quick_page}Q") action FilePage("quick")
+
+#                     ## range(1, 10) gives the numbers from 1 to 9.
+#                     for page in range(1, 10):
+#                         textbutton "[page]" action FilePage(page)
+
+#                     textbutton _(">") action FilePageNext()
+#                     key "save_page_next" action FilePageNext()
+
+#                 if config.has_sync:
+#                     if CurrentScreenName() == "save":
+#                         textbutton _("Upload Sync"):
+#                             action UploadSync()
+#                             xalign 0.5
+#                     else:
+#                         textbutton _("Download Sync"):
+#                             action DownloadSync()
+#                             xalign 0.5
+
+
+# style page_label is gui_label
+# style page_label_text is gui_label_text
+# style page_button is gui_button
+# style page_button_text is gui_button_text
+
+# style slot_button is gui_button
+# style slot_button_text is gui_button_text
+# style slot_time_text is slot_button_text
+# style slot_name_text is slot_button_text
+
+# style page_label:
+#     xpadding 75
+#     ypadding 5
+
+# style page_label_text:
+#     textalign 0.5
+#     layout "subtitle"
+#     hover_color gui.hover_color
+
+# style page_button:
+#     properties gui.button_properties("page_button")
+
+# style page_button_text:
+#     properties gui.text_properties("page_button")
+
+# style slot_button:
+#     properties gui.button_properties("slot_button")
+
+# style slot_button_text:
+#     properties gui.text_properties("slot_button")
 
 
 ## Preferences screen ##########################################################
@@ -974,159 +983,159 @@ style history_label_text:
 ## screens (keyboard_help, mouse_help, and gamepad_help) to display the actual
 ## help.
 
-screen help():
+# screen help():
 
-    tag menu
+#     tag menu
 
-    default device = "keyboard"
+#     default device = "keyboard"
 
-    use game_menu(_("Help"), scroll="viewport"):
+#     use game_menu(_("Help"), scroll="viewport"):
 
-        style_prefix "help"
+#         style_prefix "help"
 
-        vbox:
-            spacing 23
+#         vbox:
+#             spacing 23
 
-            hbox:
+#             hbox:
 
-                textbutton _("Keyboard") action SetScreenVariable("device", "keyboard")
-                textbutton _("Mouse") action SetScreenVariable("device", "mouse")
+#                 textbutton _("Keyboard") action SetScreenVariable("device", "keyboard")
+#                 textbutton _("Mouse") action SetScreenVariable("device", "mouse")
 
-                if GamepadExists():
-                    textbutton _("Gamepad") action SetScreenVariable("device", "gamepad")
+#                 if GamepadExists():
+#                     textbutton _("Gamepad") action SetScreenVariable("device", "gamepad")
 
-            if device == "keyboard":
-                use keyboard_help
-            elif device == "mouse":
-                use mouse_help
-            elif device == "gamepad":
-                use gamepad_help
-
-
-screen keyboard_help():
-
-    hbox:
-        label _("Enter")
-        text _("Advances dialogue and activates the interface.")
-
-    hbox:
-        label _("Space")
-        text _("Advances dialogue without selecting choices.")
-
-    hbox:
-        label _("Arrow Keys")
-        text _("Navigate the interface.")
-
-    hbox:
-        label _("Escape")
-        text _("Accesses the game menu.")
-
-    hbox:
-        label _("Ctrl")
-        text _("Skips dialogue while held down.")
-
-    hbox:
-        label _("Tab")
-        text _("Toggles dialogue skipping.")
-
-    hbox:
-        label _("Page Up")
-        text _("Rolls back to earlier dialogue.")
-
-    hbox:
-        label _("Page Down")
-        text _("Rolls forward to later dialogue.")
-
-    hbox:
-        label "H"
-        text _("Hides the user interface.")
-
-    hbox:
-        label "S"
-        text _("Takes a screenshot.")
-
-    hbox:
-        label "V"
-        text _("Toggles assistive {a=https://www.renpy.org/l/voicing}self-voicing{/a}.")
-
-    hbox:
-        label "Shift+A"
-        text _("Opens the accessibility menu.")
+#             if device == "keyboard":
+#                 use keyboard_help
+#             elif device == "mouse":
+#                 use mouse_help
+#             elif device == "gamepad":
+#                 use gamepad_help
 
 
-screen mouse_help():
+# screen keyboard_help():
 
-    hbox:
-        label _("Left Click")
-        text _("Advances dialogue and activates the interface.")
+#     hbox:
+#         label _("Enter")
+#         text _("Advances dialogue and activates the interface.")
 
-    hbox:
-        label _("Middle Click")
-        text _("Hides the user interface.")
+#     hbox:
+#         label _("Space")
+#         text _("Advances dialogue without selecting choices.")
 
-    hbox:
-        label _("Right Click")
-        text _("Accesses the game menu.")
+#     hbox:
+#         label _("Arrow Keys")
+#         text _("Navigate the interface.")
 
-    hbox:
-        label _("Mouse Wheel Up")
-        text _("Rolls back to earlier dialogue.")
+#     hbox:
+#         label _("Escape")
+#         text _("Accesses the game menu.")
 
-    hbox:
-        label _("Mouse Wheel Down")
-        text _("Rolls forward to later dialogue.")
+#     hbox:
+#         label _("Ctrl")
+#         text _("Skips dialogue while held down.")
+
+#     hbox:
+#         label _("Tab")
+#         text _("Toggles dialogue skipping.")
+
+#     hbox:
+#         label _("Page Up")
+#         text _("Rolls back to earlier dialogue.")
+
+#     hbox:
+#         label _("Page Down")
+#         text _("Rolls forward to later dialogue.")
+
+#     hbox:
+#         label "H"
+#         text _("Hides the user interface.")
+
+#     hbox:
+#         label "S"
+#         text _("Takes a screenshot.")
+
+#     hbox:
+#         label "V"
+#         text _("Toggles assistive {a=https://www.renpy.org/l/voicing}self-voicing{/a}.")
+
+#     hbox:
+#         label "Shift+A"
+#         text _("Opens the accessibility menu.")
 
 
-screen gamepad_help():
+# screen mouse_help():
 
-    hbox:
-        label _("Right Trigger\nA/Bottom Button")
-        text _("Advances dialogue and activates the interface.")
+#     hbox:
+#         label _("Left Click")
+#         text _("Advances dialogue and activates the interface.")
 
-    hbox:
-        label _("Left Trigger\nLeft Shoulder")
-        text _("Rolls back to earlier dialogue.")
+#     hbox:
+#         label _("Middle Click")
+#         text _("Hides the user interface.")
 
-    hbox:
-        label _("Right Shoulder")
-        text _("Rolls forward to later dialogue.")
+#     hbox:
+#         label _("Right Click")
+#         text _("Accesses the game menu.")
 
-    hbox:
-        label _("D-Pad, Sticks")
-        text _("Navigate the interface.")
+#     hbox:
+#         label _("Mouse Wheel Up")
+#         text _("Rolls back to earlier dialogue.")
 
-    hbox:
-        label _("Start, Guide, B/Right Button")
-        text _("Accesses the game menu.")
-
-    hbox:
-        label _("Y/Top Button")
-        text _("Hides the user interface.")
-
-    textbutton _("Calibrate") action GamepadCalibrate()
+#     hbox:
+#         label _("Mouse Wheel Down")
+#         text _("Rolls forward to later dialogue.")
 
 
-style help_button is gui_button
-style help_button_text is gui_button_text
-style help_label is gui_label
-style help_label_text is gui_label_text
-style help_text is gui_text
+# screen gamepad_help():
 
-style help_button:
-    properties gui.button_properties("help_button")
-    xmargin 12
+#     hbox:
+#         label _("Right Trigger\nA/Bottom Button")
+#         text _("Advances dialogue and activates the interface.")
 
-style help_button_text:
-    properties gui.text_properties("help_button")
+#     hbox:
+#         label _("Left Trigger\nLeft Shoulder")
+#         text _("Rolls back to earlier dialogue.")
 
-style help_label:
-    xsize 375
-    right_padding 30
+#     hbox:
+#         label _("Right Shoulder")
+#         text _("Rolls forward to later dialogue.")
 
-style help_label_text:
-    size gui.text_size
-    xalign 1.0
-    textalign 1.0
+#     hbox:
+#         label _("D-Pad, Sticks")
+#         text _("Navigate the interface.")
+
+#     hbox:
+#         label _("Start, Guide, B/Right Button")
+#         text _("Accesses the game menu.")
+
+#     hbox:
+#         label _("Y/Top Button")
+#         text _("Hides the user interface.")
+
+#     textbutton _("Calibrate") action GamepadCalibrate()
+
+
+# style help_button is gui_button
+# style help_button_text is gui_button_text
+# style help_label is gui_label
+# style help_label_text is gui_label_text
+# style help_text is gui_text
+
+# style help_button:
+#     properties gui.button_properties("help_button")
+#     xmargin 12
+
+# style help_button_text:
+#     properties gui.text_properties("help_button")
+
+# style help_label:
+#     xsize 375
+#     right_padding 30
+
+# style help_label_text:
+#     size gui.text_size
+#     xalign 1.0
+#     textalign 1.0
 
 
 
@@ -1186,9 +1195,13 @@ style confirm_frame:
     padding gui.confirm_frame_borders.padding
     xalign .5
     yalign .5
+    xsize 900
+    ysize 500
 
 style confirm_prompt_text:
     textalign 0.5
+    font 'fonts/Sora-Regular.ttf'
+    color '#DAAE60'
     layout "subtitle"
 
 style confirm_button:
@@ -1196,6 +1209,9 @@ style confirm_button:
 
 style confirm_button_text:
     properties gui.text_properties("confirm_button")
+    font 'fonts/Sora-Regular.ttf'
+    idle_color '#DAAE60'
+    hover_color '#F1E293'
 
 
 ## Skip indicator screen #######################################################
@@ -1247,6 +1263,8 @@ style skip_frame:
 
 style skip_text:
     size gui.notify_text_size
+    font 'fonts/Sora-Regular.ttf'
+    color '#DAAE60'
 
 style skip_triangle:
     ## We have to use a font that has the BLACK RIGHT-POINTING SMALL TRIANGLE

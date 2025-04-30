@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 28: expected statement.
-    zoom 0.23 xalign 0.0 yalign 0.1 xoffset -30
-          ^
+File "game/load.rpy", line 18: use statement expects a non-empty block.
+    use game_menu(title):
+                         ^
 
 Ren'Py Version: Ren'Py 8.3.7.25031702
-Thu Apr 24 12:17:15 2025
+Wed Apr 30 20:43:06 2025
