@@ -258,7 +258,7 @@ screen quick_menu():
             textbutton _("History") action ShowMenu('history')
             textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
             textbutton _("Auto") action Preference("auto-forward", "toggle")
-            textbutton _("Save") action ShowMenu('save')
+            textbutton _("Load") action [ShowMenu('load'), Hide("game_menu")]
             # textbutton _("Q.Save") action QuickSave()
             # textbutton _("Q.Load") action QuickLoad()
             textbutton _("Prefs") action ShowMenu('preferences')
@@ -295,17 +295,23 @@ style quick_button_text:
 
 screen navigation():
 
-    vbox:
-        style_prefix "navigation"
+    fixed:
+        # style_prefix "navigation"
 
-        xpos gui.navigation_xpos
-        yalign 0.5
+        # xpos gui.navigation_xpos
+        # yalign 0.5
 
-        spacing gui.navigation_spacing
+        # spacing gui.navigation_spacing
 
         if main_menu:
+            # START
+            # textbutton _("Start") action Start()
+            imagebutton:
+                auto "images/start/start_%s.png"
+                xpos 1165
+                ypos 128
+                action Start()
 
-            textbutton _("Start") action Start()
 
         else:
 
@@ -313,9 +319,48 @@ screen navigation():
 
             textbutton _("Save") action ShowMenu("save")
 
-        textbutton _("Load") action ShowMenu("load")
+        # LOAD
+        # textbutton _("Load") action ShowMenu("load")
+        imagebutton:
+                auto "images/start/load_%s.png"
+                xpos 872
+                ypos 61
+                action ShowMenu("load")
 
-        textbutton _("Preferences") action ShowMenu("preferences")
+        # PREFERENCES
+        # textbutton _("Preferences") action ShowMenu("preferences")
+        imagebutton:
+                auto "images/start/pref_%s.png"
+                xpos 1461
+                ypos 94
+                action ShowMenu("preferences")
+
+
+        if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
+            
+            # HELP
+            ## Help isn't necessary or relevant to mobile devices.
+            # textbutton _("Help") action ShowMenu("help")
+            imagebutton:
+                auto "images/start/help_%s.png"
+                xpos 1399
+                ypos 316
+                action ShowMenu("help")
+
+        if renpy.variant("pc"):
+
+            # QUIT
+            ## The quit button is banned on iOS and unnecessary on Android and
+            ## Web.
+            # textbutton _("Quit") action Quit(confirm=not main_menu)
+            imagebutton:
+                auto "images/start/quit_%s.png"
+                xpos 1204
+                ypos 336
+                action Quit(confirm=not main_menu)
+
+
+
 
         if _in_replay:
 
@@ -325,18 +370,13 @@ screen navigation():
 
             textbutton _("Main Menu") action MainMenu()
 
-        textbutton _("About") action ShowMenu("about")
-
-        if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
-
-            ## Help isn't necessary or relevant to mobile devices.
-            textbutton _("Help") action ShowMenu("help")
-
-        if renpy.variant("pc"):
-
-            ## The quit button is banned on iOS and unnecessary on Android and
-            ## Web.
-            textbutton _("Quit") action Quit(confirm=not main_menu)
+        # GALLERY/ABOUT
+        # textbutton _("About") action ShowMenu("about")
+        imagebutton:
+                auto "images/start/gallery_%s.png"
+                xpos 999
+                ypos 376
+                action ShowMenu("about")
 
 
 style navigation_button is gui_button
@@ -393,7 +433,7 @@ style main_menu_frame:
     xsize 420
     yfill True
 
-    background "gui/overlay/main_menu.png"
+    # background "gui/overlay/main_menu.png"
 
 style main_menu_vbox:
     xalign 1.0
