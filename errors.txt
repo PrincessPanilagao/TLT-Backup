@@ -2,9 +2,18 @@
 errors listed below, and try again.
 
 
+<<<<<<< HEAD
 File "game/load.rpy", line 18: use statement expects a non-empty block.
     use game_menu(title):
                          ^
 
 Ren'Py Version: Ren'Py 8.3.7.25031702
 Wed Apr 30 20:43:06 2025
+=======
+File "game/preferences.rpy", line 143: 'thumb_offset' is not a keyword argument or valid child of the hbox statement.
+    thumb_offset 24
+                ^
+
+Ren'Py Version: Ren'Py 8.3.7.25031702
+Fri May  2 10:34:03 2025
+>>>>>>> fc11d11 (May 2 2025 Updates (Pref Screen))

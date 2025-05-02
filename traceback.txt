@@ -1,15 +1,29 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
+<<<<<<< HEAD
 After initialization, but before game start.
   File "game/screens.rpy", line 594, in prepare_screen
     screen save():
   File "game/screens.rpy", line 594, in prepare
     screen save():
 Exception: A screen named file_slots does not exist.
+=======
+While running game code:
+  File "renpy/common/00start.rpy", line 201, in script
+    python:
+  File "renpy/common/00start.rpy", line 202, in <module>
+    _init_language()
+  File "renpy/common/00start.rpy", line 83, in _init_language
+    renpy.change_language(language, force=True)
+  File "game/preferences.rpy", line 173, in <module>
+    properties gui.label_properties("radio_label")
+AttributeError: 'StoreModule' object has no attribute 'label_properties'
+>>>>>>> fc11d11 (May 2 2025 Updates (Pref Screen))
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
+<<<<<<< HEAD
   File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\bootstrap.py", line 359, in bootstrap
     renpy.main.main()
   File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\main.py", line 652, in main
@@ -25,8 +39,37 @@ Full traceback:
   File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\sl2\slast.py", line 2030, in prepare
     raise Exception("A screen named {} does not exist.".format(self.target))
 Exception: A screen named file_slots does not exist.
+=======
+  File "renpy/common/00start.rpy", line 201, in script
+    python:
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\ast.py", line 834, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\python.py", line 1187, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "renpy/common/00start.rpy", line 202, in <module>
+    _init_language()
+  File "renpy/common/00start.rpy", line 83, in _init_language
+    renpy.change_language(language, force=True)
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\translation\__init__.py", line 791, in change_language
+    new_change_language(tl, language)
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\translation\__init__.py", line 746, in new_change_language
+    i.apply()
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\ast.py", line 2813, in apply
+    value = renpy.python.py_eval(expr)
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\python.py", line 1218, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\python.py", line 1211, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/preferences.rpy", line 173, in <module>
+    properties gui.label_properties("radio_label")
+AttributeError: 'StoreModule' object has no attribute 'label_properties'
+>>>>>>> fc11d11 (May 2 2025 Updates (Pref Screen))
 
 Windows-10-10.0.22631 AMD64
 Ren'Py 8.3.7.25031702
 The Last Toast 1.0
+<<<<<<< HEAD
 Wed Apr 30 20:18:45 2025
+=======
+Fri May  2 10:02:00 2025
+>>>>>>> fc11d11 (May 2 2025 Updates (Pref Screen))

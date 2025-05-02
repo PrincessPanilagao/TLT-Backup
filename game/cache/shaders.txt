@@ -2,8 +2,19 @@ renpy.ftl
 renpy.solid
 renpy.alpha renpy.texture
 renpy.alpha renpy.geometry renpy.texture
+<<<<<<< HEAD
 renpy.dissolve renpy.geometry
 renpy.geometry renpy.solid
 renpy.texture
 renpy.dissolve renpy.dissolve
 renpy.geometry renpy.texture
+=======
+renpy.geometry renpy.solid
+renpy.geometry renpy.texture
+renpy.dissolve renpy.geometry
+renpy.ftl
+renpy.texture
+renpy.alpha renpy.texture
+renpy.dissolve renpy.dissolve
+renpy.solid
+>>>>>>> fc11d11 (May 2 2025 Updates (Pref Screen))
