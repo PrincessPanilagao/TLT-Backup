@@ -3,6 +3,13 @@
     #                (c) Hiraya Studios                 #
     #####################################################
 
+## Prompt Management ##
+init python:
+    from store import layout
+    layout.MAIN_MENU = _("Return to the main menu?\nThis will lose unsaved progress.")
+    layout.LOADING = _("Loading will lose unsaved progress.\nContinue?")
+    layout.OVERWRITE_SAVE = _("Are you sure you want to \noverwrite your save?")
+
 
 ## Mouse design ##
 define config.mouse = {}
@@ -41,8 +48,10 @@ define player_title = ""
 
 define footman = Character("Footman")
 define herald = Character("Herald")
+define lux = Character("Lux")
 
-define e = Character("Bianca")
+
+
 
 ## Character Flips ##
 image maleser flip = Transform("images/characters/maleser.png", xzoom=-1)
@@ -173,20 +182,56 @@ label act_1_aftertitle:
     "He holds an umbrella over your head as you take his gloved hand and step down."
     footman "Please head to the main hall. The master of the house is eager to see who accepted his invitation."
     hide maleser with dissolve
-    # NEW BG
+
+    # Foyer!
+    scene bg foyer with dissolve
+
     "The foyer rises high above you. The ceilings are tall, and chandeliers hang like stars caught in glass. {i}Everything seems to shine.{/i}"
     "You can already hear the clink of glasses, low laughter, and the soft hum of conversation drifting in from the hall."
     "At the entrance, a herald stands beside a podium. He gives you a quick once-over."
+
     show maleser flip at right with dissolve
+    with Pause(0.3)
+
     herald "Announcing the arrival of—"
     "He pauses, scanning the guest register."
     herald "[player_title] [mcname] Winslow."
     hide maleser flip with dissolve
     "A few heads turn."
+    # STOP TEXTBOX HERE!!! - have to click again to continue (window hide)
     # NO textbox - chatter stops (2 seconds)
     # The chatter picks back up again
     "You catch a few lingering, curious glances."
+    "Before you can dwell too long on how to fit into the social bustle, a young man approaches."
+    "He appears to be in his early twenties, with sharp features and an unexpectedly polished grace to his movements."
 
+    ## Lux Scene ##
+    show lux slyclosedeye with dissolve
+    with Pause(0.5)
+    "He bows with practiced poise."
+    show lux smiletalk
+    "???" "[player_title] [mcname], it is a pleasure to welcome you. May I offer you a drink to mark your arrival?"
+    
+    show lux neutral
+    mc "Not as of now. Thank you."
+
+    show lux neutraltalk
+    "???" "Of course."
+
+    "You regard the guests around the room."
+    show lux lookaway
+    with Pause(2)
+
+    show lux sly
+    "???" "The house is full tonight."
+    "???" "Should you require anything, my name is Lux. I shall be at your service."
+
+    show lux slyclosedeye
+    "Lux dips into another bow, disappearing as quickly as he arrived, offering drinks and making his rounds again."
+
+    ## Interactive Characters ##
+    scene bg hall with fade
+    "Lux dips into another bow, disappearing as quickly as he arrived, offering drinks and making his rounds again."
 
 
     

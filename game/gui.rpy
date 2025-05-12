@@ -341,8 +341,8 @@ define gui.unscrollable = "hide"
 define config.history_length = 250
 
 ## The height of a history screen entry, or None to make the height variable at
-## the cost of performance.
-define gui.history_height = 210
+## the cost of performance. (210)
+define gui.history_height = 86
 
 ## Additional space to add between history screen entries.
 define gui.history_spacing = 0
@@ -357,7 +357,7 @@ define gui.history_name_xalign = 1.0
 ## The position, width, and alignment of the dialogue text.
 define gui.history_text_xpos = 255
 define gui.history_text_ypos = 3
-define gui.history_text_width = 1110
+define gui.history_text_width = 1000
 define gui.history_text_xalign = 0.0
 
 
@@ -479,3 +479,4 @@ init python:
 
         gui.nvl_button_width = 1860
         gui.nvl_button_xpos = 30
+    

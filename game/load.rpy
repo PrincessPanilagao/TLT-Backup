@@ -2,8 +2,6 @@
     #   Load Screen   #
     ###################
 
-<<<<<<< HEAD
-=======
 image return_idle:
     "gui/screens/return_idle.png"
     zoom 0.75
@@ -12,7 +10,25 @@ image return_hover:
     "gui/screens/return_hover.png"
     zoom 0.75
 
->>>>>>> fc11d11 (May 2 2025 Updates (Pref Screen))
+
+screen save():
+
+    tag menu
+
+    # Background image (same as load)
+    add "gui/screens/save_bg.png" xysize (config.screen_width, config.screen_height)
+
+    # Return Button
+    imagebutton:
+        idle "return_idle"
+        hover "return_hover"
+        xpos 1605
+        ypos 550
+        action Return()
+
+    use file_slots(_("Save"))
+
+
 screen load():
 
     tag menu
@@ -22,11 +38,6 @@ screen load():
 
     # Return Button
     imagebutton:
-<<<<<<< HEAD
-        # idle "gui/screens/return_idle.png"
-        # hover "gui/screens/return_hover.png"
-=======
->>>>>>> fc11d11 (May 2 2025 Updates (Pref Screen))
         idle "return_idle"
         hover "return_hover"
         xpos 1605

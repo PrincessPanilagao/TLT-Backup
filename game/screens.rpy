@@ -258,11 +258,7 @@ screen quick_menu():
             textbutton _("History") action ShowMenu('history')
             textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
             textbutton _("Auto") action Preference("auto-forward", "toggle")
-<<<<<<< HEAD
-            textbutton _("Load") action [ShowMenu('load'), Hide("game_menu")]
-=======
-            textbutton _("Save") action [ShowMenu('load'), Hide("game_menu")]
->>>>>>> fc11d11 (May 2 2025 Updates (Pref Screen))
+            textbutton _("Save") action [ShowMenu('save'), Hide("game_menu")]
             # textbutton _("Q.Save") action QuickSave()
             # textbutton _("Q.Load") action QuickLoad()
             textbutton _("Prefs") action ShowMenu('preferences')
@@ -553,7 +549,8 @@ style game_menu_outer_frame:
     bottom_padding 45
     top_padding 180
 
-    background "gui/overlay/game_menu.png"
+    # background "gui/overlay/game_menu.png"
+    # background "gui/screens/history_bg.png"
 
 style game_menu_navigation_frame:
     xsize 420
@@ -595,35 +592,35 @@ style return_button:
 ## There's nothing special about this screen, and hence it also serves as an
 ## example of how to make a custom screen.
 
-screen about():
+# screen about():
 
-    tag menu
+#     tag menu
 
-    ## This use statement includes the game_menu screen inside this one. The
-    ## vbox child is then included inside the viewport inside the game_menu
-    ## screen.
-    use game_menu(_("About"), scroll="viewport"):
+#     ## This use statement includes the game_menu screen inside this one. The
+#     ## vbox child is then included inside the viewport inside the game_menu
+#     ## screen.
+#     use game_menu(_("About"), scroll="viewport"):
 
-        style_prefix "about"
+#         style_prefix "about"
 
-        vbox:
+#         vbox:
 
-            label "[config.name!t]"
-            text _("Version [config.version!t]\n")
+#             label "[config.name!t]"
+#             text _("Version [config.version!t]\n")
 
-            ## gui.about is usually set in options.rpy.
-            if gui.about:
-                text "[gui.about!t]\n"
+#             ## gui.about is usually set in options.rpy.
+#             if gui.about:
+#                 text "[gui.about!t]\n"
 
-            text _("Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]")
+#             text _("Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]")
 
 
-style about_label is gui_label
-style about_label_text is gui_label_text
-style about_text is gui_text
+# style about_label is gui_label
+# style about_label_text is gui_label_text
+# style about_text is gui_text
 
-style about_label_text:
-    size gui.label_text_size
+# style about_label_text:
+#     size gui.label_text_size
 
 
 ## Load and Save screens #######################################################
@@ -635,11 +632,11 @@ style about_label_text:
 ## https://www.renpy.org/doc/html/screen_special.html#save https://
 ## www.renpy.org/doc/html/screen_special.html#load
 
-screen save():
+# screen save():
 
-    tag menu
+#     tag menu
 
-    use file_slots(_("Save"))
+#     use file_slots(_("Save"))
 
 
 # screen load():
@@ -939,86 +936,86 @@ screen save():
 ##
 ## https://www.renpy.org/doc/html/history.html
 
-screen history():
+# screen history():
 
-    tag menu
+#     tag menu
 
-    ## Avoid predicting this screen, as it can be very large.
-    predict False
+#     ## Avoid predicting this screen, as it can be very large.
+#     predict False
 
-    use game_menu(_("History"), scroll=("vpgrid" if gui.history_height else "viewport"), yinitial=1.0, spacing=gui.history_spacing):
+#     use game_menu(_("History"), scroll=("vpgrid" if gui.history_height else "viewport"), yinitial=1.0, spacing=gui.history_spacing):
 
-        style_prefix "history"
+#         style_prefix "history"
 
-        for h in _history_list:
+#         for h in _history_list:
 
-            window:
+#             window:
 
-                ## This lays things out properly if history_height is None.
-                has fixed:
-                    yfit True
+#                 ## This lays things out properly if history_height is None.
+#                 has fixed:
+#                     yfit True
 
-                if h.who:
+#                 if h.who:
 
-                    label h.who:
-                        style "history_name"
-                        substitute False
+#                     label h.who:
+#                         style "history_name"
+#                         substitute False
 
-                        ## Take the color of the who text from the Character, if
-                        ## set.
-                        if "color" in h.who_args:
-                            text_color h.who_args["color"]
+#                         ## Take the color of the who text from the Character, if
+#                         ## set.
+#                         if "color" in h.who_args:
+#                             text_color h.who_args["color"]
 
-                $ what = renpy.filter_text_tags(h.what, allow=gui.history_allow_tags)
-                text what:
-                    substitute False
+#                 $ what = renpy.filter_text_tags(h.what, allow=gui.history_allow_tags)
+#                 text what:
+#                     substitute False
 
-        if not _history_list:
-            label _("The dialogue history is empty.")
-
-
-## This determines what tags are allowed to be displayed on the history screen.
-
-define gui.history_allow_tags = { "alt", "noalt", "rt", "rb", "art" }
+#         if not _history_list:
+#             label _("The dialogue history is empty.")
 
 
-style history_window is empty
+# ## This determines what tags are allowed to be displayed on the history screen.
 
-style history_name is gui_label
-style history_name_text is gui_label_text
-style history_text is gui_text
+# define gui.history_allow_tags = { "alt", "noalt", "rt", "rb", "art" }
 
-style history_label is gui_label
-style history_label_text is gui_label_text
 
-style history_window:
-    xfill True
-    ysize gui.history_height
+# style history_window is empty
 
-style history_name:
-    xpos gui.history_name_xpos
-    xanchor gui.history_name_xalign
-    ypos gui.history_name_ypos
-    xsize gui.history_name_width
+# style history_name is gui_label
+# style history_name_text is gui_label_text
+# style history_text is gui_text
 
-style history_name_text:
-    min_width gui.history_name_width
-    textalign gui.history_name_xalign
+# style history_label is gui_label
+# style history_label_text is gui_label_text
 
-style history_text:
-    xpos gui.history_text_xpos
-    ypos gui.history_text_ypos
-    xanchor gui.history_text_xalign
-    xsize gui.history_text_width
-    min_width gui.history_text_width
-    textalign gui.history_text_xalign
-    layout ("subtitle" if gui.history_text_xalign else "tex")
+# style history_window:
+#     xfill True
+#     ysize gui.history_height
 
-style history_label:
-    xfill True
+# style history_name:
+#     xpos gui.history_name_xpos
+#     xanchor gui.history_name_xalign
+#     ypos gui.history_name_ypos
+#     xsize gui.history_name_width
 
-style history_label_text:
-    xalign 0.5
+# style history_name_text:
+#     min_width gui.history_name_width
+#     textalign gui.history_name_xalign
+
+# style history_text:
+#     xpos gui.history_text_xpos
+#     ypos gui.history_text_ypos
+#     xanchor gui.history_text_xalign
+#     xsize gui.history_text_width
+#     min_width gui.history_text_width
+#     textalign gui.history_text_xalign
+#     layout ("subtitle" if gui.history_text_xalign else "tex")
+
+# style history_label:
+#     xfill True
+
+# style history_label_text:
+#     xalign 0.5
 
 
 ## Help screen #################################################################
@@ -1239,13 +1236,8 @@ style confirm_frame:
     padding gui.confirm_frame_borders.padding
     xalign .5
     yalign .5
-<<<<<<< HEAD
-    xsize 900
-    ysize 500
-=======
-    xsize 990
+    xsize 950
     ysize 540
->>>>>>> fc11d11 (May 2 2025 Updates (Pref Screen))
 
 style confirm_prompt_text:
     textalign 0.5
