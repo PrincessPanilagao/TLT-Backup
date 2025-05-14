@@ -3,6 +3,22 @@
     #                (c) Hiraya Studios                 #
     #####################################################
 
+
+## Splash Screen ##
+# image splash = "splash-screen.png"
+# label splashscreen:
+#     scene black
+#     with Pause (1)
+
+#     show splash with dissolve
+#     with Pause(2)
+
+#     scene black with dissolve
+#     with Pause(1)
+
+#     $ renpy.transition(fade, layer="master")
+#     return
+
 ## Prompt Management ##
 init python:
     from store import layout
@@ -49,7 +65,11 @@ define player_title = ""
 define footman = Character("Footman")
 define herald = Character("Herald")
 define lux = Character("Lux")
-
+define bia = Character("Bianca")
+# define ben = Charater("Benette")
+# define luc = Character("Lucien")
+# define lys = Character("Lysander")
+# define quin = Character("Quinn")
 
 
 
@@ -229,18 +249,86 @@ label act_1_aftertitle:
     show lux slyclosedeye
     "Lux dips into another bow, disappearing as quickly as he arrived, offering drinks and making his rounds again."
 
-    ## Interactive Characters ##
+    jump interactive_characters
+
+## Interactive Characters ##
+label interactive_characters:
     scene bg hall with fade
-    "Lux dips into another bow, disappearing as quickly as he arrived, offering drinks and making his rounds again."
+    window hide
+    call screen gtk_characters
+
+# GTK Bianca & Benette
+label gtk_bb:
+    scene bg hall blurred with dissolve
+    show bia flirtsmile at left
+    show screen show_chartag("char_bia", xalign_val=0.35, yalign_val=0.25)
+    with dissolve
+    bia "Oh, come now, Benette, surely even your ink has its secrets. That last column of yours? Positively dazzling. You do have a way with words, darling." 
+    bia "Now, tell me…if I were to host a little gala next week, would you come?"
+    show bia flirtblush
+    bia "Assuming I send an invitation, of course."
 
 
+
+# Pressable character images
+image quinn_idle:
+    "images/mainhall/btn_quinn_idle.png"
+image quinn_hover:
+    "images/mainhall/btn_quinn_hover.png"
     
+image luclys_idle:
+    "images/mainhall/btn_lylu_idle.png"
+image luclys_hover:
+    "images/mainhall/btn_lylu_hover.png"
+    xpos -11
+    ypos -8
+
+image bb_idle:
+    "images/mainhall/btn_bibe_idle.png"
+image bb_hover:
+    "images/mainhall/btn_bibe_hover.png"
+    xpos -11
+    ypos -8
+
+# Character tags images
+image char_bia = "images/mainhall/tags/bianca-tag.png"
+image char_ben = "images/mainhall/tags/benette-tag.png"
+image char_luc = "images/mainhall/tags/lucien-tag.png"
+image char_lys = "images/mainhall/tags/lysander-tag.png"
+image char_quin = "images/mainhall/tags/edmond-tag.png"
 
 
 
+# Show character tag
+screen show_chartag(tagid, xalign_val=0.35, yalign_val=0.25):
+    add tagid xalign xalign_val yalign yalign_val zoom 1.5
 
 
-
+# Pressable characters
+screen gtk_characters:
+    # Quinn
+    imagebutton:
+        idle "quinn_idle"
+        hover "quinn_hover"
+        xpos 1681
+        ypos 537
+        action Return()
+    
+    # Lucien & Lys
+    imagebutton:
+        idle "luclys_idle"
+        hover "luclys_hover"
+        xpos 540
+        ypos 524
+        action Return()
+    
+    # Bianca & Ben
+    imagebutton:
+        idle "bb_idle"
+        hover "bb_hover"
+        xpos 154
+        ypos 407
+        action Jump("gtk_bb")
 
 # MC display name + Winslow
 screen show_mcname(name_text):
@@ -285,7 +373,4 @@ screen invitation_button:
         yalign 0.24
         action Jump("input_name")  # Jump to the next scene/label
 
-
-# screen input_name:
-    #add "images/envelope/envelope_invitation.png" zoom 0.42 xalign 0.5 yalign 0.5 at zoom_in
     

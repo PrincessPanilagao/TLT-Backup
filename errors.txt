@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 228: expected statement.
-    lux 
-        ^
+File "game/script.rpy", line 303: duplicate parameter name 'xalign'
+    screen show_chartag(tagid, xalign=0.5, xalign=0.5):
+                                                     ^
 
 Ren'Py Version: Ren'Py 8.3.7.25031702
-Wed May  7 11:14:10 2025
+Wed May 14 15:08:29 2025
