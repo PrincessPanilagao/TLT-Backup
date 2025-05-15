@@ -1,54 +1,30 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 269, in script
-    bia "Assuming I send an invitation, of course."
-TypeError: got an unexpected keyword argument 'xalign_val'
+  File "game/script.rpy", line 459, in script
+    show bg foyer Solid("#000") as bg_black at pulse
+Exception: Image 'bg foyer' does not accept attributes 'Solid ("#000")'.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 269, in script
-    bia "Assuming I send an invitation, of course."
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\ast.py", line 2586, in execute
-    Say.execute(self)
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\ast.py", line 623, in execute
-    renpy.exports.say(who, what, *args, **kwargs)
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\exports\sayexports.py", line 132, in say
-    who(what, *args, **kwargs)
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\character.py", line 1471, in __call__
-    self.do_display(who, what, cb_args=self.cb_args, dtt=dtt, **display_args)
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\character.py", line 1117, in do_display
-    display_say(who,
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\character.py", line 814, in display_say
-    rv = renpy.ui.interact(mouse='say', type=type, roll_forward=roll_forward)
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\ui.py", line 301, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\core.py", line 2218, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\core.py", line 2748, in interact_core
-    root_widget.visit_all(lambda d : d.per_interact())
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\displayable.py", line 434, in visit_all
-    d.visit_all(callback, seen)
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\displayable.py", line 434, in visit_all
-    d.visit_all(callback, seen)
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\displayable.py", line 434, in visit_all
-    d.visit_all(callback, seen)
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\screen.py", line 480, in visit_all
-    callback(self)
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\core.py", line 2748, in <lambda>
-    root_widget.visit_all(lambda d : d.per_interact())
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\screen.py", line 491, in per_interact
-    self.update()
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\screen.py", line 700, in update
-    self.screen.function(**self.scope)
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\parameter.py", line 455, in apply_arguments
-    return parameters.apply(args or (), kwargs or {}, ignore_errors)
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\parameter.py", line 384, in apply
-    raise TypeError(
-TypeError: got an unexpected keyword argument 'xalign_val'
+  File "game/script.rpy", line 459, in script
+    show bg foyer Solid("#000") as bg_black at pulse
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\ast.py", line 1124, in execute
+    show_imspec(self.imspec, atl=getattr(self, "atl", None))
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\ast.py", line 1087, in show_imspec
+    renpy.config.show(name,
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\exports\displayexports.py", line 477, in show
+    if not base.find_target() and renpy.config.missing_show:
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\image.py", line 421, in find_target
+    self.target = target._duplicate(a)
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\displayable.py", line 249, in _duplicate
+    args.extraneous()
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\displayable.py", line 109, in extraneous
+    raise Exception("Image '{}' does not accept attributes '{}'.".format(
+Exception: Image 'bg foyer' does not accept attributes 'Solid ("#000")'.
 
 Windows-10-10.0.22631 AMD64
 Ren'Py 8.3.7.25031702
 The Last Toast 1.0
-Wed May 14 15:10:26 2025
+Thu May 15 21:06:47 2025

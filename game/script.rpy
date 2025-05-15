@@ -57,6 +57,12 @@ transform shake:
     linear 0.1 yoffset 0
     repeat
 
+transform pulse:
+    alpha 0.3
+    linear 0.9 alpha 0.6
+    linear 0.9 alpha 0.3
+    repeat
+
 
 ## Characters ##
 define mc = Character("[mcname]")
@@ -66,10 +72,10 @@ define footman = Character("Footman")
 define herald = Character("Herald")
 define lux = Character("Lux")
 define bia = Character("Bianca")
-# define ben = Charater("Benette")
-# define luc = Character("Lucien")
-# define lys = Character("Lysander")
-# define quin = Character("Quinn")
+define ben = Character("Benette")
+define luc = Character("Lucien")
+define lys = Character("Lysander")
+define eq = Character("Edmond Quinn")
 
 
 
@@ -79,6 +85,9 @@ image maleser flip = Transform("images/characters/maleser.png", xzoom=-1)
 
 ## Python Codes ##
 default letter_opened = False
+default quinn_done = False
+default luclys_done = False
+default bb_done = False
 
 init python:
     def dragged_func(dragged_items, dropped_on):
@@ -189,11 +198,11 @@ label act_1:
     window hide
     menu:
         "Lord":
-            "Welcome to De Montfort Manor, my Lord. Allow me."
+            footman "Welcome to De Montfort Manor, my Lord. Allow me."
             $ player_title = "Lord"
             jump act_1_aftertitle
         "Lady":
-            "Welcome to De Montfort Manor, my Lady. Allow me."
+            footman "Welcome to De Montfort Manor, my Lady. Allow me."
             $ player_title = "Lady"
             jump act_1_aftertitle
         
@@ -230,7 +239,7 @@ label act_1_aftertitle:
     with Pause(0.5)
     "He bows with practiced poise."
     show lux smiletalk
-    "???" "[player_title] [mcname], it is a pleasure to welcome you. May I offer you a drink to mark your arrival?"
+    "???" "[player_title] Winslow, it is a pleasure to welcome you. May I offer you a drink to mark your arrival?"
     
     show lux neutral
     mc "Not as of now. Thank you."
@@ -251,15 +260,18 @@ label act_1_aftertitle:
 
     jump interactive_characters
 
-## Interactive Characters ##
+
+## - Interactive Characters (GTK) | Main Hall - ##
 label interactive_characters:
+    hide screen show_chartag
     scene bg hall with fade
     window hide
     call screen gtk_characters
 
+
 # GTK Bianca & Benette
 label gtk_bb:
-    scene bg hall blurred with dissolve
+    scene bg nobb with dissolve
     show bia flirtsmile at left
     show screen show_chartag("char_bia", xalign_val=0.35, yalign_val=0.25)
     with dissolve
@@ -267,6 +279,222 @@ label gtk_bb:
     bia "Now, tell me…if I were to host a little gala next week, would you come?"
     show bia flirtblush
     bia "Assuming I send an invitation, of course."
+
+    show ben nervoussmile at right
+    show screen show_chartag("char_ben", xalign_val=0.63, yalign_val=0.25)
+    with dissolve
+    "Benette laughs nervously, his fingers tightening around the pen."
+    ben "Ah—well…only the dull secrets, I assure you... Lady Lucertia. And that’s very kind of you to say."
+    show ben lookaway
+    ben "If an invitation were to find its way to me, I-I wouldn’t dream of declining."
+    $ bb_done = True
+    jump interactive_characters
+
+
+# GTK Lucien & Lysander
+label gtk_ll:
+    scene bg noll with dissolve
+    show luc pondering at left
+    show screen show_chartag("char_luc", xalign_val=0.35, yalign_val=0.15)
+    with dissolve
+    luc "No one’s buying quiet success anymore, Lysander. They want fireworks, headlines."
+    show luc neutraltalk
+    luc "Tell me, how was that shipping deal in Marlowe? Quite the opportunity, I’d imagine."
+
+    show lys neutraltalk at right
+    show screen show_chartag("char_lys", xalign_val=0.59, yalign_val=0.15)
+    with dissolve
+    lys "Careful, Lucien. Fireworks tend to burn."
+    show lys amused
+    lys "But now that you’ve mentioned it… there are a few people I could connect you with."
+    $ luclys_done = True
+    jump interactive_characters
+
+
+# GTK Quinn
+label gtk_qn:
+    scene bg noquinn with dissolve
+    show quinn madtalk at left
+    show screen show_chartag("char_quin", xalign_val=0.35, yalign_val=0.25)
+    with dissolve
+    eq "What do you mean you don’t have Cognac? My father always kept it in stock. I {i}prefer{/i} it! Everyone on this estate knows this. Are you new here?"
+    show maid at right with dissolve
+    "Maid" "I’m terribly sorry, sir. I remember Lord De Montfort specifically requested its removal. We can check in the cellar, but for now, would you care for some Armagnac instead?"
+    show quinn annoyedce
+    "Edmond’s expression darkened, frustration flashing in his eyes."
+    show quinn mad
+    eq "Forget it. I’ll get my own damn drink. Thanks."
+    "With an irritated huff, he reaches into his pocket, retrieving a flask. He takes a long pull from it instead."
+    "Maid" "Of course, sir. My apologies again."
+    show quinn annoyedce
+    eq "Unbelievable…"
+    $ quinn_done = True
+    jump interactive_characters
+
+
+label after_gtk_1:
+    scene bg hall
+    "Everyone seems well-acquainted already…"
+    scene bg nobia with dissolve
+    "From the corner of your eye, you notice someone approaching, dazzling under the chandelier’s glow."
+    "All your focus narrows to her alone. Her silk attire and unmistakable lavish jewelry are a gleaming symbol of high society."
+    "A soft trail of perfume lingers in the air around her, it smells of something floral with a sharp undercurrent that cuts through the sweetness."
+    show bia flirtsmile with dissolve
+    bia "Oh my…you look as though you’ve wandered into the wrong place. You’re not from here, are you? Or at least, I haven’t seen you around before."
+    menu:
+        "Is it that obvious?":
+            mc "Is it that obvious? I was hoping to at least blend in for the entirety of the evening."
+            show bia flirtce
+            bia "Well, blending in is dreadfully overrated. I much prefer standing out."
+            mc "You can say that—my sister was a natural when it came to standing out in these social affairs."
+            show bia surprise
+            bia "A sister? Oh, how lovely. Is she here tonight as well?"
+            jump after_gtk_2
+        "I was invited.":
+            mc "I was invited, same as everyone else."
+            show bia flirtsmile
+            bia "A mystery guest, now {i}that’s{/i} how you make an entrance."
+            mc "Yes, well, my sister has always been the more sociable one."
+            show bia surprise
+            bia "A sister? Oh, how lovely. Is she here tonight as well?"
+            jump after_gtk_2
+        "I'm not partial to parties...":
+            mc "I'm not partial to parties...my sister has always been the more sociable one."
+            show bia surprise
+            bia "A sister? Oh, how lovely. Is she here tonight as well?"
+            jump after_gtk_2
+
+
+label after_gtk_2:
+    mc "No, sadly, she couldn’t make it. She’s…still recovering from a rather persistent bout of flu."
+    mc "Which, I suppose, works in my favor as I get the chance to finally feel what it’s like to be in her place for a while."
+    mc "If she were here in my stead, she would already be dazzling everyone in conversation."
+    show bia flirtce
+    "Bianca lets out a soft laugh, sipping her drink with a knowing smile."
+    bia "I used to have a dear friend like that. Always the light in the room, the one everyone gravitated towards."
+    "Her voice dips slightly. The smile holds, but only just. She grips her glass just a little too tightly."
+    bia "She could charm a room without saying a word. The staff adored her, the men adored her, everyone did."
+    bia "And she {i}knew{/i} it. Walked through every ballroom like she owned the place. I used to think…maybe, if I stood close enough, some of that shine would rub off on me too."
+    show bia neutraltalk
+    bia "But it never did."
+    show bia petulanttalk
+    bia "Still…who’s to say? We lost touch ages ago."
+    menu:
+        "What happened?":
+            mc "She sounds…lovely. What happened?"
+            show bia petulant
+            bia "We grew up. Priorities shifted. She disappeared on all of us, no goodbye, no explanation."
+            bia "Some said she moved to the family’s estate near the coast. Others whispered that she got engaged. Truth is…no one really knows."
+            mc "I’m sorry to hear that."
+            mc "...But you know…you remind me a great deal of my sister. Something about the way you carry yourself. The way you dress. It feels…familiar."
+            show bia flirtblush
+            "She raises a brow, eyes narrowing slightly with interest. Then, her lips curl into a smirk."
+            show bia flirtsmile
+            bia "Really?"
+            show bia flirtce
+            "She flicks her hair back in a manner that suggests she's fixing it—though nothing is truly out of place."
+            bia "Well, I {i}am{/i} flattered. But I do hope your sister had better taste in friends than I did."
+            jump after_gtk_3
+        
+        "You seem to know everyone here.":
+            mc "You seem to know everyone here. Are you always the life of the party?"
+            show bia flirtce
+            bia "That’s not a {i}no{/i}. But yes, I tend to make the most of these evenings. And I have a feeling we’re going to get along just fine."
+            jump after_gtk_3
+
+        "Time separates us.":
+            show bia neutral
+            mc "Funny how time pulls us away from people."
+            show bia petulanttalk
+            bia "Time, distance, secrets…yes, all of the above. It’s a wonder we remember anyone at all."
+            jump after_gtk_3
+
+label after_gtk_3:
+    "Bianca finishes her drink, her attention already drifting toward the mingling crowd."
+    bia "Enough of the nostalgia. That reminds me… where is our elusive host? I feel like I’ve been here half the evening already."
+    show bia petulanttalk
+    "She scans the room, eyes narrowing, then waves down a passing figure."
+    show bia neutraltalk
+    bia "You! Pretty boy—Lux, was it?"
+    show bia neutral at left
+    show lux neutraltalk at right
+    with dissolve
+    lux "Yes, madam?"
+    show bia neutraltalk
+    show lux neutral
+    bia "Would you be so kind as to fetch our host? It’s well past the hour on the invitation."
+    show bia neutral
+    show lux lookaway
+    lux "I’ve checked with Lord De Montfort, madam. He asked me to assure you he’ll be down shortly. He’s just caught up with something at the moment."
+    show lux neutral
+    show bia neutraltalk
+    bia "Well, it would be nice if he–" 
+
+    with vpunch #!! FIX SCREEN SIZE
+
+    #ADD SCREAM!!!
+    show lux surprise
+    show bia surprise
+
+    window hide
+    pause (0.5)
+    "A sudden scream cuts through the air, freezing everyone in place."
+    "The room falls into immediate silence. Eyes dart toward the stairs, where a maid stands, pale-faced, her trembling finger pointed frantically toward the upper floor."
+    
+    show bia offended
+    bia "What the hell was that?"
+    "The maid, visibly shaking, stumbles over her words, She struggles to convey what she’s just witnessed, clinging to the wall for support."
+    "Maid" "Sir—He—Lord—Lord De Montfort... He—"
+    show lux nervous
+    lux "Everyone, please remain calm! I ask you to enjoy the refreshments while we investigate–"
+    show bg nobq with dissolve
+    "But Lux’s voice is swallowed by the chaos as Edmond Quinn is the first to dart from the room, his panic palpable."
+
+    
+    eq "No…No! This can’t be…!"
+    hide lux
+    hide bia
+    show bg black
+    # make entire image blurred
+    # BLACK SCREEN
+    with fade
+    "You could feel yourself moving, swept up by the tide of panicked guests. Your mind scrambled to catch up, to make sense of the endless possibilities of what could have happened."
+    "The smell reaches you first."
+    "A putrid stench, unmistakable, hanging thick in the air. It’s the rancid, nauseating scent of burning flesh, like something entirely inhuman. It claws at your throat and stings your eyes."
+    "You’re forced to clasp a hand over your nose, fighting the overwhelming urge to gag."
+    "Beside you, you hear a soft retch followed by the sharp crack of a glass shattering on the floor."
+    "And then you see it. "
+
+    show bg upperhw with fade
+    # show expression Solid("#000") as bg_black at pulse
+    pause (0.9)
+
+    "Nothing could have prepared you for the sight."
+    "Lord Edmond Montague De Montfort lies lifeless on the floor, his face gruesomely disfigured. The skin eaten away by some sort of acid."
+    "What remains are the remnants of his formal attire, unmistakably marked by the De Montfort family crest."
+
+    "Blood, too much blood, spreads across the carpeted stairs in dark pools, seeping into the fibers and dripping slowly."
+    "It stains everything."
+    "It stains the air, making it hard to breathe."
+    "The sight was so grotesque—harrowing—that it burns itself on your memory."
+    "Edmond Quinn, his eldest son, kneels next to the body. His face contorts in a mix of disbelief, grief, and sheer horror as he presses a trembling hand to the chest of what remains of his father."
+    "The instant his hand makes contact, he recoils, a choked cry escaping him as he stumbles back, eyes wide."
+    "Silence stretches over the room as everyone watches the scene unfold."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -306,13 +534,16 @@ screen show_chartag(tagid, xalign_val=0.35, yalign_val=0.25):
 
 # Pressable characters
 screen gtk_characters:
+    if store.bb_done and store.quinn_done and store.luclys_done:
+        timer 0.1 action Jump("after_gtk_1")
+
     # Quinn
     imagebutton:
         idle "quinn_idle"
         hover "quinn_hover"
         xpos 1681
         ypos 537
-        action Return()
+        action Jump("gtk_qn")
     
     # Lucien & Lys
     imagebutton:
@@ -320,7 +551,7 @@ screen gtk_characters:
         hover "luclys_hover"
         xpos 540
         ypos 524
-        action Return()
+        action Jump("gtk_ll")
     
     # Bianca & Ben
     imagebutton:
