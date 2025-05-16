@@ -80,7 +80,9 @@ screen history():
                             yfit True
 
                         if h.who:
-                            label h.who:
+                            $ display_name = "Edmond" if h.who == "Edmond Quinn" else h.who
+
+                            label display_name:
                                 style "history_name"
                                 substitute False
                                 if "color" in h.who_args:
