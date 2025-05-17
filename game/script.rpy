@@ -6,6 +6,8 @@
 
 ## Splash Screen ##
 image splash = "splash-screen.png"
+image disclaimer = "images/disclaimer.png"
+
 label splashscreen:
     scene black
     with Pause (1)
@@ -17,6 +19,15 @@ label splashscreen:
     with Pause(1)
 
     $ renpy.transition(fade, layer="master")
+
+    # Show disclaimer
+    show disclaimer
+    with fade
+    
+    pause 15
+
+    hide disclaimer
+    with fade
     return
 
 ## Prompt Management ##
@@ -62,17 +73,17 @@ transform card_resize:
     yalign 0.45
     zoom 0.6
 
-# transform pulse:
-#     alpha 0.3
-#     linear 0.9 alpha 0.6
-#     linear 0.9 alpha 0.3
-#     repeat
-
-transform panic_pulse:
-    alpha 0.0
-    linear 1.0 alpha 0.5
-    linear 1.0 alpha 0.0
+transform pulse:
+    alpha 0.2
+    linear 1.0 alpha 0.4
+    linear 1.0 alpha 0.2
     repeat
+
+# transform panic_pulse:
+#     alpha 0.0
+#     linear 1.0 alpha 0.5
+#     linear 1.0 alpha 0.0
+#     repeat
 
 
 ## Characters ##
@@ -205,7 +216,7 @@ label act_1:
     
     # Ambient car/rain on separate channel
     $ renpy.music.play("audio/amb/carwrain.mp3", channel="amb", loop=True, fadein=1.0)
-    $ renpy.music.set_volume(0.4, channel="amb")
+    $ renpy.music.set_volume(0.55, channel="amb")
     
     with fade
     $ renpy.pause(1)
@@ -230,6 +241,7 @@ label act_1:
     "Through the car window, the manor looms into view."
     scene bg housedoor with fade
     "The car glides to a smooth stop at the grand entrance, where a footman steps forward without delay."
+    play sound "audio/sfx/cardoor.mp3" volume 0.6
     show maleser with dissolve
     footman "Welcome to De Montfort Manor..."
 
@@ -295,7 +307,7 @@ label act_1_aftertitle:
     $ renpy.music.play("audio/amb/chatter.mp3", channel="amb1", loop=True, fadein=1.0)
     $ renpy.music.set_volume(0.15, channel="amb1")
 
-    "Before you can dwell too long on how to fit into the social bustle, a young man approaches."
+    "But before you can dwell too long on how to fit into the social bustle, a young man approaches."
     "He appears to be in his early twenties, with sharp features and an unexpectedly polished grace to his movements."
 
     ## Lux Scene ##
@@ -552,10 +564,11 @@ label after_gtk_3:
     "Beside you, you hear a soft retch followed by the sharp crack of a glass shattering on the floor."
     "And then you see it. "
 
+    show expression Solid("#000") as bg_black at pulse zorder 100
     $ renpy.music.play("audio/amb/heavybreathing.mp3", channel="amb1", loop=True, fadein=1.0)
     $ renpy.music.set_volume(0.05, channel="amb1")
     show bg upperhw with fade
-    # show expression Solid("#000") as bg_black at pulse
+
     pause (0.9)
 
     "Nothing could have prepared you for the sight."
@@ -571,6 +584,8 @@ label after_gtk_3:
     "Edmond Quinn, his eldest son, kneels next to the body. His face contorts in a mix of disbelief, grief, and sheer horror as he presses a trembling hand to the chest of what remains of his father."
     "The instant his hand makes contact, he recoils, a choked cry escaping him as he stumbles back, eyes wide."
     "Silence stretches over the room as everyone watches the scene unfold."
+
+    hide bg_black with dissolve 
     $ renpy.music.stop(channel="amb1", fadeout=1.5)
 
 
@@ -619,7 +634,7 @@ label after_gtk_3:
     hide quinn
     show bia neutraltalk at left
     with dissolve
-    bia "Well, Mr. Kingswell, surely you’d know a thing or two about accidents…wouldn’t you?"
+    bia "Well, Mr. Velasco, surely you’d know a thing or two about accidents…wouldn’t you?"
     hide bia
     hide luc
     with dissolve
@@ -743,7 +758,7 @@ label second_murder:
     show quinn enraged
     with dissolve
     eq "Whoever did this—they’re still here!"
-    eq "Face us, you coward!"
+    eq "Face us, you cowards!"
     hide quinn with dissolve
     "You scan what’s left of the group. And you can’t help but wonder if any of them can still be trusted."
     show bia offended at left
@@ -754,8 +769,6 @@ label second_murder:
 
     play sound "audio/sfx/luxcoat.mp3" volume 0.3
 
-    stop music fadeout 1.0
-    play music "audio/m_suspensevio2.mp3" fadein 1.0 volume 0.4
     ben "What is this?"
     "You notice movement beside you. Benette is rifling through Lux’s coat. His fingers tremble as he pulls out a stack of cards." 
     
@@ -769,6 +782,8 @@ label second_murder:
     with dissolve
     "The cards make their way to each person, name inscribed in gold ink. But as you turn yours over, your stomach sinks."
     
+    stop music fadeout 1.0
+    play music "audio/m_suspensevio2.mp3" fadein 1.0 volume 0.4
     # show calling card
     window hide
     scene bg hallcleardarker
@@ -779,7 +794,7 @@ label second_murder:
 
     "A cold sweat creeps over you."
     "You glance up to find everyone holding their own card. Silent. Pale."
-    "And that’s when it dawns on you–"
+    # "And that’s when it dawns on you–"
     "None of this is an accident."
     "You weren’t just invited."
     "You were chosen."
@@ -791,7 +806,6 @@ label second_murder:
     scene black with fade
     stop music fadeout 1.0
     return
-
 
 
 

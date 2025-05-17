@@ -123,7 +123,7 @@ screen about():
                 text "Music & SFX" style "headers_text" xalign 0.5
                 text "Gnossiennes No.1 - Alfred Eric Leslie Satie (1866-1925)" style "body_text" xalign 0.5
                 text "Turkish Towel - Johnny Hamp's Kentucky Serenaders (1926)" style "body_text" xalign 0.5
-                text "togetherless - Franz Gordon (2020)" style "body_text" xalign 0.5
+                text "Togetherless - Franz Gordon (2020)" style "body_text" xalign 0.5
                 text "Youtube" style "body_text" xalign 0.5
                 text "SoundCloud" style "body_text" xalign 0.5
                 text "Pixabay" style "body_text" xalign 0.5
@@ -172,8 +172,9 @@ screen about():
                         hover "twt_hover"
                         action OpenURL("https://x.com/studioshiraya")
                 
-                null height 20 
-                text "Visit our official website {a=https://www.renpy.org/}link here{/a}" style "body_text" xalign 0.5
+                null height 20
+                text "Official website coming soon!" style "body_text" xalign 0.5
+                # text "Visit our official website {a=https://www.renpy.org/}link here{/a}" style "body_text" xalign 0.5
                 
                 
 
