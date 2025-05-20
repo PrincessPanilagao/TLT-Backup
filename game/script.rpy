@@ -8,27 +8,27 @@
 image splash = "splash-screen.png"
 image disclaimer = "images/disclaimer.png"
 
-label splashscreen:
-    scene black
-    with Pause (1)
+# label splashscreen:
+#     scene black
+#     with Pause (1)
 
-    show splash with dissolve
-    with Pause(2)
+#     show splash with dissolve
+#     with Pause(2)
 
-    scene black with dissolve
-    with Pause(1)
+#     scene black with dissolve
+#     with Pause(1)
 
-    $ renpy.transition(fade, layer="master")
+#     $ renpy.transition(fade, layer="master")
 
-    # Show disclaimer
-    show disclaimer
-    with fade
+#     # Show disclaimer
+#     show disclaimer
+#     with fade
     
-    pause 15
+#     pause 15
 
-    hide disclaimer
-    with fade
-    return
+#     hide disclaimer
+#     with fade
+#     return
 
 ## Prompt Management ##
 init python:
@@ -61,6 +61,13 @@ transform slide_in_from_left:
     xpos -500  # start off the screen on the left
     yalign 0.1
     linear 0.5 xpos 0  # Slide to x=0 (centered)
+
+transform slide_in_pause_out:
+    xpos -500 # Start off-screen
+    linear 0.5  xpos 0 # Slide in
+    pause 5.0 # Stay in place
+    linear 0.5  xpos -500 # Slide out again
+    alpha 0
 
 transform shake:
     linear 0.1 yoffset -2
@@ -98,6 +105,8 @@ define ben = Character("Benette")
 define luc = Character("Lucien")
 define lys = Character("Lysander")
 define eq = Character("Edmond Quinn")
+define quinn = Character("Quinn")
+define fadein = Fade(1.5, 0.0, 0.5)
 
 
 
@@ -110,6 +119,12 @@ default letter_opened = False
 default quinn_done = False
 default luclys_done = False
 default bb_done = False
+default seen_investroom_objective = False
+default secretroute = 0
+default callalily = False
+default makeupbox = False
+default sepbia = False
+default teaset = False
 
 init python:
     def dragged_func(dragged_items, dropped_on):
@@ -801,25 +816,18 @@ label second_murder:
     "And the night has only just begun."
 
     $ quick_menu = False
-    show expression "images/thank-u-screen.png" with fade
-    pause
-    scene black with fade
-    stop music fadeout 1.0
-    return
 
+    # Show act 2 title screen
+    show placeholder_act2
+    with fade
+    $ renpy.pause(2)
 
-
-
-
-
-
-
-
-
-
-
-
-
+    jump act_2
+    # show expression "images/thank-u-screen.png" with fade
+    # pause
+    # scene black with fade
+    # stop music fadeout 1.0
+    # return
 
 
 # Pressable character images
@@ -848,8 +856,6 @@ image char_ben = "images/mainhall/tags/benette-tag.png"
 image char_luc = "images/mainhall/tags/lucien-tag.png"
 image char_lys = "images/mainhall/tags/lysander-tag.png"
 image char_quin = "images/mainhall/tags/edmond-tag.png"
-
-
 
 # Show character tag
 screen show_chartag(tagid, xalign_val=0.35, yalign_val=0.25):
@@ -928,4 +934,873 @@ screen invitation_button:
         yalign 0.24
         action Jump("input_name")  # Jump to the next scene/label
 
+ 
+
+
+## ---Act 2: “Out, damned spot!”---##
+label act_2:
+    # CHANGE THIS!!!
+    stop music fadeout 1.0
+    play music "audio/m_mystery2.mp3" fadein 1.0 volume 0.8
+
+    window hide
+    $ quick_menu = True
+    scene bg hallclear:
+        xalign 0.5
+        yalign 0.5
+    with fade
+    $ renpy.pause(1)
+    window show
+    "{i}To leave, you must face what you have buried.{/i}"
+    "The note feels heavier in your hand now as the message burns into your mind."
+    "You feel it dig into your gut like a quiet accusation."
+
+    show ben neutraltalk at left
+    with dissolve
+    ben "...What does that even mean?"
+
+    show luc neutraltalk at right with dissolve
+    luc "This is clearly a threat."
+
+    show bia petulanttalk at center
+    with dissolve
+    bia "Well, if that’s the case, isn’t it safe to assume {i}one of us{/i} is involved with the culprit?"
+
+    show ben nervous
+    show luc pondering
+    "No one meets her gaze."
+
+    show ben neutraltalk
+    ben "Or…"
+    ben "Or maybe all of us?"
+    show ben nervous
+    show luc shock
+    show bia offended
+    ben "Maybe we’re not here by accident."
+
+    show ben panic
+    play sound "audio/sfx/ripcard1.mp3" volume 0.08
+    "Without a word, Lysander rips his own card, letting it fall on the floor."
+
+    hide ben
+    hide bia
+    show luc neutral
+    show lys mad at left
+    with dissolve
+    lys "We’re being toyed with."
+    show luc neutraltalk
+    luc "How about this, let’s split up–"
+
+    hide lys
+    show bia sneer at left
+    with dissolve
+
+    bia "Are you insane? The culprit could still be in here. What if we’re picked off one by one the moment we split?"
+    "She makes a point by subtly gesturing to the scattered remains of the staff."
+
+    show luc neutral
+    show bia petulant
+    show quinn madtalk at center with dissolve
+    eq "I’m not trusting a single one of you."
+
+    show luc neutraltalk
+    show quinn mad
+    luc "Yes, but that doesn’t mean we rip each other apart. We’ll cover more ground if we work together."
+
+    hide bia
+    hide quinn 
+    hide luc
+    show ben nervous
+    with dissolve
+    ben "Okay, okay, stop! Let’s just…think."
+    ben "We were all invited here, but why? There must be some connection to the De Montforts or something?"
+
+    "The question lingers in the air."
+    "Of course, that much is true. If this is some masterfully cultivated plan, then everyone should at least have some connection to the De Montforts."
+
+    "Lucien is the first to speak."
+
+    hide ben
+    show luc neutraltalk
+    with dissolve
+    luc "Vincent has been a close friend of mine for years. He treated me like a brother in and out of business. I would never hurt him or his family."
+
+    hide luc with dissolve
+    "Vincent, the youngest son of Edmond Montague. A man now serving time in prison."
+    "Everyone seems to quiet at that, their thoughts retreating inward, weighing the possible reasons they could be dragged into this."
+
+    "Even Bianca doesn’t look at anyone."
+
+    show bia petulanttalk with dissolve
+    bia "I was Vincent’s daughter’s best friend."
+    bia "Seraphine."
+    bia "We used to attend and host galas together. Everyone knows this."
+
+    "Lucien nods at her."
+
+    hide bia
+    show ben nervous
+    with dissolve
+    ben "I-"
+
+    "Benette fidgets with the pen that is usually tucked in his breast pocket; glancing briefly toward Lysander."
+
+    show ben nervoussmile
+    ben "I’ve written press for the De Montforts for years. Always gave them good coverage when it mattered."
+    ben "I-I figured I was invited to cover tonight’s soiree for this week’s column."
+
+    "He nods once to himself, as if affirming his own presence."
+    "Benette Hawthorne—the leading journalist in The Marlowe Gazette—had covered countless features on the De Montforts over the years."
+
+    hide ben
+    show lys neutralla
+    with dissolve
+    "Lysander doesn’t speak. He crosses his arms and leans against the wall, expression unreadable."
+    "But something in the confidence of his posture tells everyone he doesn’t need to explain himself."
+
+    show lys neutralce
+    "His connection to the family runs deep. Known."
+    "You vaguely recall headlines: the governor of Marlowe receiving major sponsorships from the De Montforts."
+
+    hide lys
+    show luc neutraltalk at right
+    with dissolve
+    luc "Edmond, I know you’re—"
+
+    show quinn annoyedce at left with dissolve
+    eq "It’s only Quinn now."
+    show luc shock
+    "Lucien stops. Estranged heir or not, Quinn is not inclined to elaborate further."
+
+    show bia raisedbrow at center with dissolve
+    bia "And you...[mcname], was it? I don’t recall ever seeing you at any of the family’s gatherings."
+    bia "What exactly are you to them?"
+
+    hide bia
+    hide quinn
+    hide luc
+    scene bg hallcleardark
+    with dissolve
+    "You feel everyone’s attention land squarely on you. You were sure their suspicions had always been there."
+    "All of them seem to have a clear connection to the family, one known and longstanding. And yet you…you are not one whose presence has echoed since birth."
+    "But that does not mean you are less than. Or any less tied to the De Montforts."
+    window hide
+
+    menu:
+        "My sister attended Seraphine’s events.":
+            mc "My sister attended Seraphine’s events. I tagged along sometimes, but it goes a long way back, when I was younger."
+            show bia raisedbrow with dissolve
+            bia "Really?"
+            "But you were sure it {i}was{/i} a long time ago. Because had it been recent, you would’ve remembered these people, too."
+            "You catch Lysander’s lingering gaze across the room."
+            hide bia with dissolve
+            jump eschouse
+        
+        "Vilhelm and I...":
+            mc "Vilhelm and I…we’ve known each other for a long time."
+            show bia surprise at left with dissolve
+            bia "Vilhelm?"
+            show luc shock at right with dissolve
+            luc "Vincent’s son, the youngest?"
+            mc "Yeah. Cards and wagers. He knew me well enough from the table."
+            hide bia
+            hide luc
+            with dissolve
+            "You feel the others glance your way."
+            "Vilhelm De Montfort, the youngest of Vincent’s children, known for his long list of connections and tangled past."
+            "They don’t seem to pry further."
+            jump eschouse
+
+label eschouse:
+    scene bg hallclear:
+        xalign 0.5
+        yalign 0.5
+    show quinn annoyedce at left
+    with dissolve
+    quinn "Great. So we all know someone rich. That really narrowed it down."
+
+    show luc pondering at right with dissolve
+    luc "We don’t have a choice, we need to focus on how we can get out."
+
+    "Everyone seems to have already chosen where to check, probably opting for the safest one."
+    hide quinn
+    hide luc
+    with dissolve
+    "You hang back, weighing your own choice."
+    jump esc_menu
+
+# try to escape the manor
+label esc_menu:
+    menu:
+        "Break the window":
+        #change to bg foyer
+            play sound "audio/sfx/dragchair.mp3" volume 0.3
+            "Lucien grabs a nearby chair and moves toward the window, nodding for everyone to step aside."
+            show luc neutraltalk with dissolve
+            luc "Move back."
+            play sound "audio/sfx/windowhit.mp3" volume 0.4
+            "With a firm grip, he swings the chair into the large pane. A dull thud echoes through the room, but the window remains intact."
+            "A closer look reveals {i}laminated glass{/i}."
+            hide luc with dissolve
+            jump esc_menu
+
+        "Try the main door":
+            #change to bg foyer
+            show lys neutralla with dissolve
+            play sound "audio/sfx/doorhandle.mp3" volume 0.5
+            "Lysander strides across the floor to the grand entrance. He grips the ornate brass handle, twisting it hard."
+            "It doesn’t budge."
+            show lys annoyed
+            play sound "audio/sfx/doorweight.mp3" volume 0.4
+            "He throws his weight against the door."
+            "Once."
+            "Twice."
+            "A heavy thud shakes the frame, but the lock holds."
+            "{i}Sealed from the outside.{/i}"
+            hide lys with dissolve
+            jump esc_menu
+
+        "Check the servant's area":
+            #change to bg foyer
+            show ben frown with dissolve
+            "Benette reappears, brushing dust from his pants and muttering under his breath."
+            ben "Servant’s hallway leads straight to the kitchens, but it’s no use."
+            show ben nervous
+            ben "Blocked off. Padlocked from the inside."
+            "He glances back over his shoulder, the unease in his voice barely masked."
+            hide ben with dissolve
+            jump esc_menu
+
+        "Check the hallways":
+            #change to bg foyer
+            show bia petulant with dissolve
+            "Bianca huffs, smoothing her skirt."
+            play sound "audio/sfx/biaheels.mp3" volume 0.2
+            hide bia with dissolve
+            "Her heels echo sharply against the marble as she disappears down one of the long halls, shoulders squared."
+            "A few tense seconds pass."
+            stop sound fadeout 1.0
+            bia "...This one’s unlocked."
+            jump biasroom
+
+
+## ---Bianca's Room (Tea Room)--- ##
+label biasroom:
+    scene bg hallway with dissolve
+    play sound "audio/sfx/grouprunning.mp3" volume 0.2
+    "Everyone rushes to her voice."
+    play sound "audio/sfx/doorcreakopen.mp3" volume 0.2
+    "The door creaks as she pushes it open with a single hand."
+    "A faint but distinct scent drifts from the room. A blend of lavender and herbs, rolling out in waves."
+    bia "This used to be the family’s tea room…which would explain why it’s still open, but…"
+    "She trails off, her gaze sweeping across the space."
+
+    show bia eyesnarrowed with dissolve
+    bia "This…this isn’t how I remember it."
+    play music "audio/m_tearoom.mp3" fadein 1.0 fadeout 1.0 volume 0.6
+    scene bg trwcard with fade
+    "At first glance, the room feels oddly out of place within the grand estate."
+    quinn "This wasn’t here before."
+
+    "The room feels paused in time."
+    "The tea set in the far corner still releases gentle steam as if someone had just been pouring a cup seconds before."
+    "The scent of jasmine and lavender lingers in the air, calming. Your shoulders relax without thinking."
     
+    scene bg hallway
+    show bia petulanttalk at left
+    with dissolve
+    "Bianca, however, hasn’t moved from the doorway. Her usual practiced elegance falters as her eyes roam the room, searching for something or someone."
+    mc "What's wrong?"
+
+    show bia surprise
+    "The question snaps her out of her daze."
+
+    show bia flirtsmile
+    "She pulls her boa closer, shielding the pause in her expression behind a well-worn smirk."
+    hide bia with dissolve
+    play sound "audio/sfx/biaheels.mp3" volume 0.1
+    "Without answering, she strides forward, heels tapping against polished wood."
+
+    scene bg trnocard with dissolve
+    stop sound fadeout 1.0
+    "She stops near the center of the room where Benette is crouched by a small carved table, holding a piece of cream-colored paper."
+    show ben confused at right with dissolve
+    ben "…‘A cup shared, a life stolen.’"
+
+    show luc raisedbrow at left with dissolve
+    luc "What’s that supposed to mean?"
+
+    show bia petulant at center
+    with dissolve
+    pause 0.3
+    show bia petulantla
+
+    bia "..."
+
+    hide ben
+    show lys annoyed at right
+    with dissolve
+    lys "What is this? Some kind of theatrical nonsense?"
+
+    hide lys
+    hide luc
+    hide bia
+    with dissolve
+    "Lysander aims for the door in the room."
+    "It wouldn’t budge."
+    
+    play sound "audio/sfx/paperturn.mp3" volume 0.2
+    "Benette turns the paper over."
+
+    show ben frown at left with dissolve
+    ben "Wait—there’s more on the back."
+    ben "Clues are hidden around. Look closely, for the room remembers."
+
+    show lys neutralla at right with dissolve
+    lys "Riddles? How quaint."
+
+    hide ben
+    hide lys
+    scene bg trblur
+    with dissolve
+
+
+    menu:
+        "Someone was just here...":
+            scene bg trnocard with dissolve
+            "You fixate on the steaming teacups."
+            mc "That tea isn’t cold…Someone was just here."
+            show ben nervous with dissolve
+            ben "Or still {i}is{/i} h-here."
+            "You feel the faint shift of Bianca’s posture beside you."
+            hide ben
+            show quinn neutraltalk at left
+            with dissolve
+            quinn "So what now? We find these clues?"
+            show quinn mad
+            quinn "What, and the door magically unlocks?"
+            mc "Or…a key to the main door."
+            show luc neutraltalk at right with dissolve
+            luc "Do we really have another option?"
+            hide quinn
+            hide luc
+            with dissolve
+            jump investigate_biaroom
+
+        "Bianca seems familiar with the place.":
+            scene bg trnocard with dissolve
+            mc "Bianca, do you recognize this room?"
+            show bia neutraltalk with dissolve
+            bia "...This used to be the family’s parlour. But it—it didn’t look like this before."
+            show bia neutral
+            mc "So you know this place?"
+            show bia petulanttalk
+            bia "Not more than a faint memory."
+            hide bia
+            show quinn neutraltalk at left
+            with dissolve
+            quinn "So what now? We find these clues?"
+            show quinn mad
+            quinn "What, and the door magically unlocks?"
+            mc "Or…a key to the main door."
+            show luc neutraltalk at right with dissolve
+            luc "Do we really have another option?"
+            hide quinn
+            hide luc
+            with dissolve
+            jump investigate_biaroom
+
+        "Something feels off...":
+            scene bg trnocard with dissolve
+            mc "This feels too targeted."
+            show bia sneer with dissolve
+            bia "Because it is."
+            hide bia
+            show quinn neutraltalk at left
+            with dissolve
+            quinn "Then someone in this room’s the target."
+            show luc neutraltalk at right with dissolve
+            luc "Or the {i}reason{/i} we’re all here."
+            luc "So we look. Clearly, they’re telling us the answers lie in this room."
+            hide quinn
+            hide luc
+            with dissolve
+            jump investigate_biaroom
+
+## ---INVESTIGATE THE ROOM--- ##
+label investigate_biaroom:
+    scene bg trnocard
+    call screen investigate_biaitems
+
+# # Items to investigate (imagebuttons)
+image cl_idle:
+    "images/biasroom/btn_callalily_idle.png"
+image cl_hover:
+    "images/biasroom/btn_callalily_hover.png"
+image mu_idle:
+    "images/biasroom/btn_makeup_idle.png"
+image mu_hover:
+    "images/biasroom/btn_makeup_hover.png"
+image ts_idle:
+    "images/biasroom/btn_teaset_idle.png"
+image ts_hover:
+    "images/biasroom/btn_teaset_hover.png"
+image sb_idle:
+    "images/biasroom/btn_sepbia_idle.png"
+    zoom 0.99
+image sb_hover:
+    "images/biasroom/btn_sepbia_hover.png"
+    xpos -11
+    ypos -7
+    zoom 0.99
+
+screen investigate_biaitems:
+    # continue to main story after all items are interacted with
+    if store.callalily and store.makeupbox and store.sepbia and store.teaset:
+        timer 0.1 action Jump("bfr_connectmirror")
+
+    # Callalillies
+    imagebutton:
+        idle "cl_idle"
+        hover "cl_hover"
+        xpos 23
+        ypos 508
+        action Jump("callalilies")
+    
+    # Makeup
+    imagebutton:
+        idle "mu_idle"
+        hover "mu_hover"
+        xpos 1680
+        ypos 460
+        action Jump("makeup")
+
+    # Teaset
+    imagebutton:
+        idle "ts_idle"
+        hover "ts_hover"
+        xpos 630
+        ypos 697
+        action Jump("teaset")
+    
+    # Sepbia Poster
+    imagebutton:
+        idle "sb_idle"
+        hover "sb_hover"
+        xpos 307
+        ypos 80
+        action Jump("sepbia_poster")
+
+    # bronzemirror for layering
+    add "images/biasroom/bronzemirror.png":
+        xpos 418
+        ypos 404
+        zoom 1.0
+
+    # Objective 
+    # add "images/objectives/objective investroom.png" zoom 1.0 xalign 0.0 yalign 0.1 xoffset -30 at slide_in_pause_out
+    if not seen_investroom_objective:
+        add "images/objectives/objective investroom.png":
+            at slide_in_pause_out
+            zoom 1.0
+            xalign 0.0
+            yalign 0.1
+            xoffset -30
+
+        timer 6.0 action SetVariable("seen_investroom_objective", True)
+
+
+# IR - Callalilies
+label callalilies:
+    scene bg trblur with dissolve
+    $ seen_investroom_objective = True
+
+    show callalily:
+        zoom 0.9
+        xalign 0.5
+        yalign 0.35
+    with dissolve
+    pause (3)
+    show lys neutraltalk at left with dissolve
+    lys "It’s calla lilies."
+    hide lys with dissolve
+    "Tucked within is a folded note, edges yellowed and the ink slightly faded but still legible."
+    hide callalily
+    show callanote:
+        zoom 0.62
+        xalign 0.5
+        yalign 0.4
+    with dissolve
+    pause
+    show luc raisedbrow at left with dissolve
+    luc "Wait a minute. The date…it’s five years ago."
+    show ben neutraltalk at right with dissolve
+    ben "Marcus…"
+    show ben frown
+    ben "Isn’t that your husband?"
+    hide luc
+    hide ben
+    show bia petulant at left
+    with dissolve
+    "Everyone turns to Bianca."
+    bia "You’re mistaken."
+
+    show luc eyesnarrowed at right with dissolve
+    luc "Bianca…wasn’t Marcus courting Seraphine before he married you?"
+    show bia sneer
+    bia "That was a long time ago. Whatever happened between them–"
+
+    hide luc
+    show ben neutraltalk at right with dissolve
+    show bia petulant
+    ben "No, wait—I remember this."
+    ben "The story broke just after the engagement was abruptly called off. The papers barely had time to catch up before she vanished."
+
+    show bia neutral
+    show ben neutral
+    mc "And yet, Marcus married you just a month after Seraphine left."
+
+    show bia eyesnarrowed
+    bia "What are you implying? You think I forced him to choose? That I took him from her?"
+
+    hide ben
+    show quinn mad at right with dissolve
+    quinn "Didn't you?"
+    show bia offended
+    bia "He chose me!"
+    mc "And Seraphine?"
+    show bia petulant
+    show quinn annoyedce
+    bia "She chose to disappear. That’s on her."
+    hide callanote
+    hide bia
+    hide quinn
+    with dissolve
+    $ callalily = True
+    jump investigate_biaroom
+
+
+# IR Seraphine & Bianca Photo
+label sepbia_poster:
+    scene bg trblur with dissolve
+    $ seen_investroom_objective = True
+
+    show sepbia:
+        zoom 0.9
+        xalign 0.5
+        yalign 0.32
+    with dissolve
+    pause (3)
+
+    "A portrait hangs above the fireplace."
+    mc "Huh. Look at this."
+    "Two young women smile at the portrait."
+    "One, with softer features, dressed in a timeless and understated gown. The other—striking in red lipstick and dramatic eyeliner—wears a daringly cut dress and a smirk you easily recognized."
+    mc "...Was that you, Bianca?"
+    show bia neutraltalk at left with dissolve
+    bia "That was the summer before Seraphine debutted…We were inseparable then."
+    hide bia with dissolve
+    "They were both smiling in the portrait. Two young women, certain the world would yield to them, so long as they had each other."
+    show luc neutraltalk at right with dissolve
+    luc "You looked different back then."
+    show bia petulanttalk at left with dissolve
+    bia "...Yes, I suppose I did."
+    show bia neutral
+    hide luc with dissolve
+    show lys neutraltalk at right with dissolve
+    lys "You and her don’t look all that different now."
+    hide lys
+    with dissolve
+    "Seeing Bianca beside the portrait, you can't stop comparing her to the girl in the photo. {i}Seraphine{/i}."
+    "Their outfits are strikingly similar in shape. But gone is the bold, daring air of Bianca’s younger self, replaced with something more subdued. Softer."
+    show bia flirtsmile
+    "The mirrored smile."
+    "The way her posture has shifted."
+    "It's harder to differentiate the two now. Apart from Seraphine’s signature violet hair while Bianca’s remains blonde."
+    show bia neutraltalk
+    bia "Well, everyone changes. We grow."
+    hide bia
+    with dissolve
+    menu:
+        "You really admired her, didn’t you?":
+            mc "You really admired her, didn’t you?"
+            show bia petulant at left with dissolve
+            bia "Of course I admired her. Who didn’t?"
+            show bia neutraltalk
+            bia "But I earned what I have. I will never be ashamed of that."
+            hide bia
+            hide sepbia
+            with dissolve
+            $ sepbia = True
+            jump investigate_biaroom
+        "You looked happier then. Freer.":
+            mc "You looked happier then. Freer."
+            show bia petulant at left with dissolve
+            bia "I still am."
+            show bia raisedbrow
+            bia "But what is freedom if you're always hidden in someone else's shadow?"
+            hide bia
+            hide sepbia
+            with dissolve
+            $ sepbia = True
+            jump investigate_biaroom
+        "Why’d you stop dressing the way you used to?":
+            mc "Why’d you stop dressing the way you used to?"
+            show bia neutraltalk at left with dissolve
+            bia "I used to think turning heads was enough. That if people looked, I mattered."
+            show bia petulanttalk
+            bia "But I soon realized…these are fleeting."
+            bia "I don’t want to be noticed. I want to be remembered. Admired."
+            show bia frownla
+            bia "So I learnt to soften my edges too."
+            hide bia
+            hide sepbia
+            with dissolve
+            $ sepbia = True
+            jump investigate_biaroom
+
+# IR Makeup/Laquered Box
+label makeup:
+    scene bg trblur with dissolve
+    $ seen_investroom_objective = True
+    show makeupbox:
+        zoom 0.7
+        xalign 0.5
+        yalign 0.5
+    with dissolve
+    pause (3)
+    show quinn neutral at left with dissolve
+    "On the far side of the tea room, Quinn lingers by a sideboard, his hand resting on an ornate lacquered box."
+    play sound "audio/sfx/openlaqueredbox.mp3" volume 0.6
+    "He opens it slowly. Inside are lipsticks in muted tones, and one bold rouge."
+    hide quinn
+    hide makeupbox
+    show lipstick:
+        zoom 0.7
+        xalign 0.5
+        yalign 0.5
+    with dissolve
+    "Benette leans over, casting a glance between the set and the portrait."
+    show ben surprise at left with dissolve
+    ben "These shades…"
+    "Benette lifts the pink one in a gold tube."
+    show ben neutraltalk
+    ben "Lady Seraphine used to wear something like this. Or at least from the magazines."
+    show ben nervoussmile
+    ben "My daughters asked for these exact ones on their last birthday."
+    show ben neutral
+    show bia neutraltalk at right with dissolve
+    bia "She did but she always kept it minimal. Just a touch of color."
+    bia "She wouldn’t even let me give her anything ‘too loud,’ she would say."
+    show bia neutral
+    show ben nervoussmile
+    ben "She didn’t need it."
+    show ben lookaway
+    ben "Even in the papers…Beauty sure, but it was the way she spoke. Like everything she said mattered."
+    show bia petulant
+    "Bianca’s mouth twitches, the corner falling ever so slightly."
+    show bia petulanttalk
+    bia "Yes, well. That was Seraphine."
+    hide ben
+    show luc smile at left
+    with dissolve
+    show bia petulant
+    luc "She made it look easy."
+    show bia neutraltalk
+    bia "Well, appearances are always easier to perfect than who we really are underneath."
+    hide luc
+    hide bia
+    hide lipstick
+    with dissolve
+    $ makeupbox = True
+    jump investigate_biaroom
+
+label teaset:
+    scene bg trblur with dissolve
+    $ seen_investroom_objective = True
+    show teaset:
+        zoom 0.8
+        xalign 0.5
+        yalign 0.35
+    with dissolve
+    pause (3)
+    "An elegant tea table sits near the fireplace, laid out perfectly as if a gathering had just left. The china glints under the low light."
+    "Steam rises from the full teacups and etched in faint gold along the rim of the teapot are the initials:"
+    mc "S.D.M…"
+    "You trace your finger along the rim of the cup."
+    "{b}Seraphine De Montfort{/b}."
+    "Tucked beneath one of the saucers seems to be a torn page from a letter. Old and creased from being read more than once."
+    play sound "audio/sfx/pulloutpaper.mp3" volume 0.5
+    "You ease it out."
+    hide teaset
+    show teanote:
+        zoom 0.7
+        xalign 0.5
+        yalign 0.35
+    with dissolve
+    pause
+    show luc neutraltalk at left with dissolve
+    luc "It’s signed…B…"
+    show luc eyesnarrowed
+    "He squints at the paper."
+    luc "Wait, you—"
+    "Lucien turns fully to Bianca, holding the letter up."
+    show luc mad
+    luc "You wrote this?"
+    show bia sneer at right with dissolve
+    bia "This is ridiculous. Anyone could’ve written that."
+    show bia neutraltalk
+    bia "It’s not even dated."
+    hide luc
+    show bia neutral
+    show ben confused at left
+    with dissolve
+    ben "Marcus? Wasn’t that Seraphine’s long-time suitor?"
+    hide ben
+    show luc eyesnarrowed at left
+    with dissolve
+    luc "You were referring to Seraphine in these letters, weren’t you?"
+    show bia neutraltalk
+    bia "You’re reaching."
+    show bia frownla
+    bia "Maybe someone just finally said what others were too afraid to."
+    show luc pondering
+    luc "But this… here—{i}‘Always tearing up over nothing.’{/i} And the mention of Marcus?"
+    show luc frown
+    luc "Only someone who knew them both well…Someone close to them both…would write something like this."
+    mc "Seraphine only ever had one true friend."
+    show bia neutraltalk
+    bia "Well, whoever wrote it was clearly observant. I’m not the only one who’s ever attended a garden party or overheard the gossip."
+    show bia neutral
+    hide luc with dissolve
+    show lys neutraltalk at left with dissolve
+    lys "But you were the only one always by her side."
+    show bia sneer
+    bia "Oh, so now I’m guilty just because I was close to her? Please, this is pathetic. Even for you, governor."
+    hide lys
+    show quinn mad at left
+    with dissolve
+    quinn "Seraphine was not one to cheat. She would rather lose everything than betray someone’s trust. That was never in her nature."
+    show bia raisedbrow
+    "Bianca folds her arms, standing unyielding in the middle of the room."
+    bia "And how are you so sure of that?"
+    show quinn neutraltalk
+    quinn "Because when the rumors started, she didn’t deny them."
+    show quinn mad
+    quinn "Not even Vincent nor Vilhelm could get her out of her room. She locked herself in and stopped seeing anyone."
+    show quinn annoyedce
+    quinn "She was destroyed. That wasn’t guilt. That was grief."
+    show bia surprise
+    "It wasn’t the engagement that broke her heart; it was the betrayal by someone who had known her for who she truly was and used it against her."
+    show bia frownla
+    bia "I did try to help her, but she refused. She pushed me away."
+    show quinn madtalk
+    quinn "And why do you think that is?"
+    hide bia
+    hide quinn
+    hide teanote
+    with dissolve
+    menu:
+        "Did you ever think she deserved better.":
+            mc "Did you ever think she deserved better from the people closest to her? That maybe all Seraphine ever wanted was an apology?"
+            show bia raisedbrow with dissolve
+            bia "And why would I apologize for something I didn’t do?"
+            show bia neutraltalk
+            bia "She did this to herself. Marcus deserved the truth, and I simply gave it to him."
+            show bia neutral
+            mc "Let’s say you walked into a room, and there’s a cake on the table, meant for someone else."
+            mc "You want it. Bad enough that you tell everyone it’s gone stale, that it’s poisoned, that no one should have it at all. But then you take a slice anyway."
+            mc "Would you still say you just told the truth?"
+            show bia eyesnarrowed
+            bia "I didn’t poison it. I didn’t take anything that wasn’t already slipping, already molding."
+            bia "If she let him slip, then maybe she never had him at all."
+            mc "But, it wasn’t yours to take."
+            show bia sneer
+            bia "Is that what this is about? Ownership? Possession? You all talk about Seraphine like she was untouchable. But you never saw what I saw. She wasn’t some perfect doll, she was cracking."
+            show bia petulanttalk
+            bia "And maybe...maybe I just stopped trying to save someone who didn't want to be saved."
+            show bia petulant
+            mc "You didn't try to save her. You could’ve been the one person who understood her, but instead…you made sure no one else did either."
+            show bia raisedbrow
+            bia "You think this is regret? That ship sank long ago. And she let it."
+            mc "Then why are you still standing in the wreckage?"
+            show bia sneer
+            "Her hands tremble at her sides before she curls them into fists."
+            show bia raisedbrow
+            bia "She was everything that I couldn’t be…"
+            mc "I think she had always saw you as {i}you{/i}. That’s what made this hurt the way it did."
+            $ secretroute =+ 1
+            hide bia
+            with dissolve
+            $ teaset = True
+            jump investigate_biaroom
+        "Do you deny it?":
+            mc "You don’t deny knowing what happened?"
+            show bia neutraltalk with dissolve
+            bia "I know what everyone thinks happened. But does it really matter what’s true anymore? People believe what they want."
+            show bia eyesnarrowed
+            bia "Seraphine had every chance to defend herself and she chose not to."
+            hide bia
+            with dissolve
+            $ teaset = True
+            jump investigate_biaroom
+        "Say nothing":
+            show bia annoyed at right with dissolve
+            bia "Fine. Be above it all. But let me remind you, Seraphine wasn’t a saint."
+            show quinn annoyedce at left with dissolve
+            quinn "Until now, you’re still spreading lies. Do you ever get tired of it?"
+            hide bia
+            hide quinn
+            with dissolve
+            $ teaset = True
+            jump investigate_biaroom
+
+label bfr_connectmirror:
+    scene bg trnocard
+    show ben frown at left
+    with dissolve
+    ben "What now? We’ve tried everything already but nothing’s happening."
+    show bia frownla at right with dissolve
+    bia "This is pointless."
+    hide bia
+    show quinn at right
+    with dissolve
+    quinn "We’ve already looked around. What else is there to see?"
+    mc "Sometimes…things don’t reveal themselves directly in the light."
+    hide quinn
+    show ben surprise at center
+    with dissolve
+    "A beat passes. Benette’s eyes snap to yours, realization dawning."
+    ben "That’s it!"
+    hide ben with dissolve
+    "He strides to the far wall."
+
+    play sound "audio/sfx/lightswitch.mp3" volume 0.5
+    scene bg black
+    "The room plunges into darkness."
+    scene bg trnolight with fadein
+    lys "Oh, great."
+    lys "How clever. Now we really can’t see anything."
+    luc "Wait."
+    play sound "audio/sfx/curtainrustling.mp3" volume 0.5
+    scene bg tropencurt with dissolve
+    pause (0.1)
+    scene bg trstartgame with dissolve
+    "A stream of moonlight spills into the room as Lucien moves the curtain."
+    show ben smile at left with dissolve
+    ben "Yes! Look—on the mirror!"
+    hide ben
+    show luc shock at left
+    with dissolve
+    luc "It’s reflecting from it..."
+    hide luc with dissolve
+    "Your eyes follow moonlight as it bounces off a mirror and points back toward the wall."
+    "You glance around. And then you see them. Mirrors. Each one carefully tilted and precisely placed, scattered across the furniture."
+    pause (1.0)
+    show ben surprise at left with dissolve
+    ben "There’s something there…it shines differently…"
+    "He moves one mirror slightly. The beam shifts."
+
+    # start game
+    # jump ()
+    return

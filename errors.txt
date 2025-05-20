@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 770: Line is indented, but the preceding stop music statement statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
-    play music "audio/m_suspensevio2.mp3" fadein 1.0 volume 0.4
+File "game/script.rpy", line 1221: Line is indented, but the preceding hide statement statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
+    play sound "audio/sfx/biaheels.mp3" volume 0.2
     ^
 
 Ren'Py Version: Ren'Py 8.3.7.25031702
-Fri May 16 19:36:42 2025
+Tue May 20 19:35:42 2025

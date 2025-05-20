@@ -1,32 +1,28 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 409, in script
-    play sound "audio/sfx/heelswood.mp3" volume 0.
-  File "renpy/common/000statements.rpy", line 306, in execute_play_sound
-    relative_volume=eval(p.get("volume", "1.0")))
-TypeError: eval() arg 1 must be a string, bytes or code object
+  File "game/script.rpy", line 1761, in script
+    scene bg trnolight with fadein
+  File "game/script.rpy", line 1761, in <module>
+    scene bg trnolight with fadein
+NameError: name 'fadein' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 409, in script
-    play sound "audio/sfx/heelswood.mp3" volume 0.
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\ast.py", line 1987, in execute
-    self.call("execute")
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\ast.py", line 1966, in call
-    return renpy.statements.call(method, parsed, *args, **kwargs)
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\statements.py", line 374, in call
-    return method(parsed, *args, **kwargs)
-  File "renpy/common/000statements.rpy", line 306, in execute_play_sound
-    relative_volume=eval(p.get("volume", "1.0")))
+  File "game/script.rpy", line 1761, in script
+    scene bg trnolight with fadein
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\ast.py", line 1370, in execute
+    paired = renpy.python.py_eval(self.paired)
   File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\python.py", line 1218, in py_eval
     return py_eval_bytecode(code, globals, locals)
   File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\python.py", line 1211, in py_eval_bytecode
     return eval(bytecode, globals, locals)
-TypeError: eval() arg 1 must be a string, bytes or code object
+  File "game/script.rpy", line 1761, in <module>
+    scene bg trnolight with fadein
+NameError: name 'fadein' is not defined
 
 Windows-10-10.0.22631 AMD64
 Ren'Py 8.3.7.25031702
 The Last Toast 1.0
-Fri May 16 18:05:55 2025
+Tue May 20 18:07:01 2025

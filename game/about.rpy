@@ -186,7 +186,7 @@ screen about():
 style about_logo_text:
     font "fonts/Sora-Medium.ttf"
     size 30
-    color "#E7ECF2"
+    color "#D1A951"
 
 # Team Member Name
 style member_text:
