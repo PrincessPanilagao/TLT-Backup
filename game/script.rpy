@@ -140,13 +140,6 @@ init python:
     renpy.music.register_channel("amb", mixer="ambient", loop=True, stop_on_mute=True)
     renpy.music.register_channel("amb1", mixer="ambient", loop=True, stop_on_mute=True)
 
-    
-    # AUDIO
-    # def play_open_letter():
-    #     renpy.log("Playing sound now!")
-    #     renpy.music.set_volume(0.4, channel="sfx_once")
-    #     renpy.sound.play("audio/sfx/openletter.mp3", channel="sfx_once")
-
 
 ## ---Game Starts Here--- ##
 label start:
@@ -979,26 +972,27 @@ label act_2:
     ben "Maybe we’re not here by accident."
 
     show ben panic
-    play sound "audio/sfx/ripcard1.mp3" volume 0.08
+    play sound "audio/sfx/ripcard1.mp3" volume 0.4
     "Without a word, Lysander rips his own card, letting it fall on the floor."
 
     hide ben
     hide bia
-    show luc neutral
     show lys mad at left
     with dissolve
+    show luc neutral
     lys "We’re being toyed with."
+    show lys neutral
     show luc neutraltalk
     luc "How about this, let’s split up–"
 
     hide lys
     show bia sneer at left
     with dissolve
+    show luc neutral
 
     bia "Are you insane? The culprit could still be in here. What if we’re picked off one by one the moment we split?"
     "She makes a point by subtly gesturing to the scattered remains of the staff."
 
-    show luc neutral
     show bia petulant
     show quinn madtalk at center with dissolve
     eq "I’m not trusting a single one of you."
@@ -1016,11 +1010,11 @@ label act_2:
     ben "We were all invited here, but why? There must be some connection to the De Montforts or something?"
 
     "The question lingers in the air."
-    "Of course, that much is true. If this is some masterfully cultivated plan, then everyone should at least have some connection to the De Montforts."
+    hide ben with dissolve
+    "Of course, that much is true. If this is some masterfully cultivated plan, then everyone should at least have some connection to the family."
 
     "Lucien is the first to speak."
 
-    hide ben
     show luc neutraltalk
     with dissolve
     luc "Vincent has been a close friend of mine for years. He treated me like a brother in and out of business. I would never hurt him or his family."
@@ -1035,20 +1029,20 @@ label act_2:
     bia "I was Vincent’s daughter’s best friend."
     bia "Seraphine."
     bia "We used to attend and host galas together. Everyone knows this."
-
+    show bia petulant
     "Lucien nods at her."
 
     hide bia
     show ben nervous
     with dissolve
     ben "I-"
-
+    show ben neutral
     "Benette fidgets with the pen that is usually tucked in his breast pocket; glancing briefly toward Lysander."
 
-    show ben nervoussmile
+    show ben nervous
     ben "I’ve written press for the De Montforts for years. Always gave them good coverage when it mattered."
-    ben "I-I figured I was invited to cover tonight’s soiree for this week’s column."
-
+    ben "I-I figured I was invited to cover tonight’s soirée for this week’s column."
+    show ben lookaway
     "He nods once to himself, as if affirming his own presence."
     "Benette Hawthorne—the leading journalist in The Marlowe Gazette—had covered countless features on the De Montforts over the years."
 
@@ -1074,6 +1068,8 @@ label act_2:
 
     show bia raisedbrow at center with dissolve
     bia "And you...[mcname], was it? I don’t recall ever seeing you at any of the family’s gatherings."
+    show bia eyesnarrowed
+    show luc eyesnarrowed
     bia "What exactly are you to them?"
 
     hide bia
@@ -1187,9 +1183,9 @@ label esc_menu:
 ## ---Bianca's Room (Tea Room)--- ##
 label biasroom:
     scene bg hallway with dissolve
-    play sound "audio/sfx/grouprunning.mp3" volume 0.2
+    play sound "audio/sfx/grouprunning.mp3" volume 0.5
     "Everyone rushes to her voice."
-    play sound "audio/sfx/doorcreakopen.mp3" volume 0.2
+    play sound "audio/sfx/doorcreakopen.mp3" volume 0.5
     "The door creaks as she pushes it open with a single hand."
     "A faint but distinct scent drifts from the room. A blend of lavender and herbs, rolling out in waves."
     bia "This used to be the family’s tea room…which would explain why it’s still open, but…"
@@ -1233,13 +1229,14 @@ label biasroom:
     show bia petulant at center
     with dissolve
     pause 0.3
-    show bia petulantla
+    show bia frownla
 
     bia "..."
 
     hide ben
     show lys annoyed at right
     with dissolve
+    show luc pondering
     lys "What is this? Some kind of theatrical nonsense?"
 
     hide lys
@@ -1247,9 +1244,10 @@ label biasroom:
     hide bia
     with dissolve
     "Lysander aims for the door in the room."
+    play sound "audio/sfx/hittingdoor.mp3" volume 0.11
     "It wouldn’t budge."
     
-    play sound "audio/sfx/paperturn.mp3" volume 0.2
+    play sound "audio/sfx/paperturn.mp3" volume 0.3
     "Benette turns the paper over."
 
     show ben frown at left with dissolve
@@ -1495,7 +1493,7 @@ label sepbia_poster:
     "A portrait hangs above the fireplace."
     mc "Huh. Look at this."
     "Two young women smile at the portrait."
-    "One, with softer features, dressed in a timeless and understated gown. The other—striking in red lipstick and dramatic eyeliner—wears a daringly cut dress and a smirk you easily recognized."
+    "One, with softer features, dressed in a timeless and understated gown. The other—striking in red lipstick and dramatic kohl—wears a daringly cut dress and a smirk you easily recognized."
     mc "...Was that you, Bianca?"
     show bia neutraltalk at left with dissolve
     bia "That was the summer before Seraphine debutted…We were inseparable then."
@@ -1665,7 +1663,7 @@ label teaset:
     show bia frownla
     bia "Maybe someone just finally said what others were too afraid to."
     show luc pondering
-    luc "But this… here—{i}‘Always tearing up over nothing.’{/i} And the mention of Marcus?"
+    luc "But this…here—{i}‘Always tearing up over nothing.’{/i} And the mention of Marcus?"
     show luc frown
     luc "Only someone who knew them both well…Someone close to them both…would write something like this."
     mc "Seraphine only ever had one true friend."
@@ -1726,8 +1724,9 @@ label teaset:
             mc "Then why are you still standing in the wreckage?"
             show bia sneer
             "Her hands tremble at her sides before she curls them into fists."
-            show bia raisedbrow
+            show bia eyesnarrowed
             bia "She was everything that I couldn’t be…"
+            show bia surprise
             mc "I think she had always saw you as {i}you{/i}. That’s what made this hurt the way it did."
             $ secretroute =+ 1
             hide bia
@@ -1763,7 +1762,7 @@ label bfr_connectmirror:
     show bia frownla at right with dissolve
     bia "This is pointless."
     hide bia
-    show quinn at right
+    show quinn annoyedce at right
     with dissolve
     quinn "We’ve already looked around. What else is there to see?"
     mc "Sometimes…things don’t reveal themselves directly in the light."
@@ -1774,7 +1773,6 @@ label bfr_connectmirror:
     ben "That’s it!"
     hide ben with dissolve
     "He strides to the far wall."
-
     play sound "audio/sfx/lightswitch.mp3" volume 0.5
     scene bg black
     "The room plunges into darkness."
@@ -1803,4 +1801,27 @@ label bfr_connectmirror:
 
     # start game
     # jump ()
+    jump connectmirror_mg
+
+
+
+##---CONNECT MIRROR MINI-GAME---##
+label connectmirror_mg:
+    play music "audio/m_cm.mp3" fadein 1.0 fadeout 1.0 volume 0.6
+    scene bg cmdark with fade
+    $ setup_pipe_game()
+    call screen connect_the_pipes
     return
+
+label after_cm:
+    play music "audio/m_tearoom.mp3" fadein 1.0 fadeout 1.0 volume 0.6
+    scene bg trstartgame with fade
+    "One by one, the mirrors come alive, reflecting the silver light in a steady, deliberate path."
+    "It dances across the room, catching glints of the group’s anxious faces before landing on a final piece."
+    "{b}A bronze mirror.{/b}"
+    "The light strikes it—\nAnd a shadow burns on the opposite wall. A projection of some sorts."
+    "At first, it looks like a strange pattern. But as your eyes adjust, the scattered shapes focuses."
+    "They're not just shadows. No. They're words."
+
+# cutsceneee
+

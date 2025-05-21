@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 1221: Line is indented, but the preceding hide statement statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
-    play sound "audio/sfx/biaheels.mp3" volume 0.2
-    ^
+File "game/pipe-minigame.rpy", line 194: unexpected indent
+            renpy.sound.set_volume(0.35)
+            ^
 
 Ren'Py Version: Ren'Py 8.3.7.25031702
-Tue May 20 19:35:42 2025
+Wed May 21 22:58:24 2025
