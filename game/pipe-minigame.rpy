@@ -272,7 +272,7 @@ init python:
                     connected_pipes.pop(-1)
                 else: # WHEN GAME IS SUCCESSFUL
                     renpy.sound.play("audio/sfx/mirrorlight/lightcorrect.mp3", loop=False)
-                    renpy.sound.set_volume(0.3)
+                    renpy.sound.set_volume(0.05)
                     renpy.jump("after_cm")
 
 

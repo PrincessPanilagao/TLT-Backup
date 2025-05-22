@@ -1797,6 +1797,8 @@ label bfr_connectmirror:
     pause (1.0)
     show ben surprise at left with dissolve
     ben "There’s something there…it shines differently…"
+    scene bg c1 with dissolve
+    play sound "audio/sfx/mirrorlight/lightmove.mp3" volume 0.12
     "He moves one mirror slightly. The beam shifts."
 
     # start game
@@ -1815,8 +1817,19 @@ label connectmirror_mg:
 
 label after_cm:
     play music "audio/m_tearoom.mp3" fadein 1.0 fadeout 1.0 volume 0.6
-    scene bg trstartgame with fade
+    scene bg c1 with fade
     "One by one, the mirrors come alive, reflecting the silver light in a steady, deliberate path."
+    scene bg c2 with dissolve
+    play sound "audio/sfx/mirrorlight/lightmove.mp3" volume 0.18
+    pause (0.1)
+    scene bg c3 with dissolve
+    play sound "audio/sfx/mirrorlight/lightmove.mp3" volume 0.18
+    pause (0.1)
+    scene bg c4 with dissolve
+    play sound "audio/sfx/mirrorlight/lightmove.mp3" volume 0.18
+    pause (0.1)
+    scene bg c5 with dissolve
+    play sound "audio/sfx/mirrorlight/lightmove.mp3" volume 0.18
     "It dances across the room, catching glints of the group’s anxious faces before landing on a final piece."
     "{b}A bronze mirror.{/b}"
     "The light strikes it—\nAnd a shadow burns on the opposite wall. A projection of some sorts."
@@ -1824,4 +1837,114 @@ label after_cm:
     "They're not just shadows. No. They're words."
 
 # cutsceneee
+# music here
 
+label aftr_cutscene:
+    # music changes here
+    stop music fadeout 1.0
+    scene bg c5bigger:
+        xalign 0.5
+        yalign 0.5
+    show bia frownla
+    with dissolve
+    bia "After all these years, she’s still after me."
+    show bia eyesnarrowed
+    mc "She was your friend. Why are you treating her like she’s—"
+    show bia offended
+    bia "I didn’t treat her any more than she deserved…!"
+    "You can sense the tension building, and your body instinctively shifts, stepping back, distancing yourself."
+    show bia grit
+    show luc mad  at right with dissolve
+    luc "So that’s your attitude toward her? You spread lies about her for god’s sake, Bianca!"
+    show bia sneer
+    bia "Those lies were true! She never got over her mother’s passing. She was weak."
+    show luc eyesnarrowed
+    bia "If everyone knew who she really was underneath they would finally see her for who she is."
+    show bia petulant
+    bia "Marcus didn’t deserve that."
+    show ben surprise at left
+    with dissolve
+    show luc shock
+    ben "So you stole him from her?"
+    show luc eyesnarrowed
+    show bia frownla
+    bia "No, I didn’t."
+    hide ben
+    hide luc
+    show bia surprise
+    with vpunch
+    quinn "You stole her life!"
+    "The words sting, and you take another step back, away from the rising anger."
+    show bia eyesnarrowed
+    bia "She didn’t deserve what she had."
+    show luc eyesnarrowed at right with dissolve
+    luc "Well, as much as she didn’t deserve you. What was all this for? Pettiness?"
+    show lys mad at left with dissolve
+    show bia annoyed
+    lys "Jealousy."
+    show bia mad
+    show lys annoyed
+    show luc mad
+    bia "She had everything!"
+    show bia grit
+    bia "Seraphine had everything and never had to try. People flocked to her like mindless sheep, just because she opened her mouth."
+    "And it’s out."
+    "The truth is raw in the air now. You step back again, searching for anything to cool the tension."
+    hide luc
+    hide lys
+    show quinn mad at right
+    with dissolve
+    show bia offended
+    quinn "So you’re happy now? She’s gone, and all the attention’s on you? Is that why?"
+    show quinn annoyedce
+    quinn "This is stupid. Even the way you dress—it’s like you’re trying to be her."
+    show bia mad
+    show ben neutral at left with dissolve
+    "Bianca steps forward, her hands raised in anger, but Benette moves quickly, pulling her back."
+    show ben surprise
+    show quinn mad
+    show bia sneer
+    bia "Don’t touch me!" with vpunch
+    show ben frown
+    "Benette lets go but stays close, her finger now aimed squarely at Quinn."
+    hide ben
+    hide quinn
+    with dissolve
+    show bia eyesnarrowed
+    bia "You don’t get to lecture me about mimicry. You, of all people, should know what it’s like to be overshadowed."
+    scene bg c5bigdark:
+        xalign 0.5
+        yalign 0.5
+    show bia mad
+    "Bianca whirls on the group, gesturing broadly."
+    show bia mad 
+    bia "Are you happy now? Fine. I admit it! Maybe I misled Marcus, maybe I lied to our friends! But it doesn’t change the fact that she chose to hide away."
+    bia "This—"
+    "Her words break off. The Bianca you met earlier, confident and poised, has dissolved completely. What’s left is someone frantic and desperate."
+    "You withdraw slightly at the sight."
+    show bia yell with vpunch
+    bia "It’s always been mine. This…This was mine to take. Our friends. Marcus—he’s mine!"
+
+    play sound "audio/sfx/doorclick.mp3" volume 0.9
+    "As the words echo in the room. The door at the far back creaks open."
+    show bia horrified
+    show luc frown at right
+    with dissolve
+    luc "Despite everything, you still haven’t changed."
+    "Disappointment. It hangs thick in the air. Palpable."
+    scene bg c5bigger:
+        xalign 0.5
+        yalign 0.5
+    hide luc
+    hide bia
+    with dissolve
+    hide bg_black with dissolve
+    "Lysander is the first to separate from the group, moving toward the open door with a quiet finality."
+    "You feel a cold chill brush your shoulder. He is suddenly beside you, a hand maneuvering you out of the way but he’s not looking at the door."
+    "Before you can dwell on it, he steps past and disappears through the doorway."
+    "Quinn follows, his expression unreadable."
+    "Lucien moves in next, slow but certain. Benette hesitates at the threshold and then steps in after them."
+    "Bianca remains behind, running a hand through her hair, her breath uneven with exasperation."
+    scene black with fade
+
+    

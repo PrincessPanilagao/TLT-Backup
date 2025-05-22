@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/pipe-minigame.rpy", line 194: unexpected indent
-            renpy.sound.set_volume(0.35)
-            ^
+File "game/script.rpy", line 1912: end of line expected.
+    with dissolve    show bia sneer
+                     ^
 
 Ren'Py Version: Ren'Py 8.3.7.25031702
-Wed May 21 22:58:24 2025
+Thu May 22 13:16:37 2025
