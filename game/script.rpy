@@ -92,6 +92,37 @@ transform pulse:
 #     linear 1.0 alpha 0.0
 #     repeat
 
+transform flicker_once_soft:
+    alpha 0.0
+    linear 0.04 alpha 0.4
+    linear 0.05 alpha 0.0
+    pause 0.03
+    linear 0.03 alpha 0.3
+    linear 0.05 alpha 0.0
+
+transform flicker_once_urgent:
+    alpha 0.0
+    linear 0.02 alpha 0.5
+    linear 0.02 alpha 0.0
+    pause 0.01
+    linear 0.01 alpha 0.7
+    linear 0.02 alpha 0.0
+    pause 0.01
+    linear 0.01 alpha 0.6
+    linear 0.02 alpha 0.0
+
+transform fake_random_flicker:
+    alpha 0
+    linear 0.1 alpha 0.4
+    linear 0.2 alpha 0
+    pause 0.3
+    linear 0.05 alpha 0.3
+    linear 0.1 alpha 0
+    pause 0.2
+    linear 0.07 alpha 0.5
+    linear 0.15 alpha 0
+    pause 0.4
+    repeat
 
 ## Characters ##
 define mc = Character("[mcname]")
@@ -1728,6 +1759,7 @@ label teaset:
             bia "She was everything that I couldn’t be…"
             show bia surprise
             mc "I think she had always saw you as {i}you{/i}. That’s what made this hurt the way it did."
+            "And for the first time that night…Bianca looks small."
             $ secretroute =+ 1
             hide bia
             with dissolve
@@ -1835,13 +1867,22 @@ label after_cm:
     "The light strikes it—\nAnd a shadow burns on the opposite wall. A projection of some sorts."
     "At first, it looks like a strange pattern. But as your eyes adjust, the scattered shapes focuses."
     "They're not just shadows. No. They're words."
+    jump bia_cutscene
 
-# cutsceneee
-# music here
+# Bianca Cutscene
+label bia_cutscene:
+    $ quick_menu = False
+    play music "audio/m_biacutscene.mp3" fadein 1.0 fadeout 1.0 volume 0.7
+    scene black with Fade(1.5, 2.0, 0.5)
+    scene bia cutscene with Dissolve(2.0)
+    show expression Solid("#00000030") as flicker_black at fake_random_flicker onlayer master
+    pause
+    scene black with Fade(1.5, 0.2, 0.5)
+    jump aftr_cutscene
 
 label aftr_cutscene:
-    # music changes here
-    stop music fadeout 1.0
+    $ quick_menu = True
+    play music "audio/m_biaconfront.mp3" fadein 1.0 fadeout 1.0 volume 0.2
     scene bg c5bigger:
         xalign 0.5
         yalign 0.5
@@ -1855,7 +1896,7 @@ label aftr_cutscene:
     "You can sense the tension building, and your body instinctively shifts, stepping back, distancing yourself."
     show bia grit
     show luc mad  at right with dissolve
-    luc "So that’s your attitude toward her? You spread lies about her for god’s sake, Bianca!"
+    luc "So is that how you're treating her now? You spread lies about her? For god’s sake, Bianca!"
     show bia sneer
     bia "Those lies were true! She never got over her mother’s passing. She was weak."
     show luc eyesnarrowed
@@ -1877,17 +1918,17 @@ label aftr_cutscene:
     "The words sting, and you take another step back, away from the rising anger."
     show bia eyesnarrowed
     bia "She didn’t deserve what she had."
-    show luc eyesnarrowed at right with dissolve
+    show luc mad at right with dissolve
     luc "Well, as much as she didn’t deserve you. What was all this for? Pettiness?"
     show lys mad at left with dissolve
     show bia annoyed
     lys "Jealousy."
-    show bia mad
+    show bia mad with dissolve
     show lys annoyed
-    show luc mad
     bia "She had everything!"
     show bia grit
     bia "Seraphine had everything and never had to try. People flocked to her like mindless sheep, just because she opened her mouth."
+    show luc eyesnarrowed
     "And it’s out."
     "The truth is raw in the air now. You step back again, searching for anything to cool the tension."
     hide luc
@@ -1898,15 +1939,22 @@ label aftr_cutscene:
     quinn "So you’re happy now? She’s gone, and all the attention’s on you? Is that why?"
     show quinn annoyedce
     quinn "This is stupid. Even the way you dress—it’s like you’re trying to be her."
+    quinn "A mimic."
     show bia mad
     show ben neutral at left with dissolve
     "Bianca steps forward, her hands raised in anger, but Benette moves quickly, pulling her back."
     show ben surprise
     show quinn mad
     show bia sneer
+
+    # PEAK
+    play music "audio/m_biaconfrontpeak.mp3" fadein 1.0 fadeout 1.0 volume 0.2
+    show expression Solid("#000") as flicker onlayer master at flicker_once_urgent
     bia "Don’t touch me!" with vpunch
+    $ renpy.pause(0.2)
+    hide flicker
     show ben frown
-    "Benette lets go but stays close, her finger now aimed squarely at Quinn."
+    "Benette lets go but stays close. Bianca's finger now aimed squarely at Quinn."
     hide ben
     hide quinn
     with dissolve
@@ -1916,20 +1964,32 @@ label aftr_cutscene:
         xalign 0.5
         yalign 0.5
     show bia mad
+    show expression Solid("#000") as flicker onlayer master at flicker_once_soft
+    $ renpy.pause(0.3) 
     "Bianca whirls on the group, gesturing broadly."
-    show bia mad 
+    hide flicker
+    show bia mad
+    show expression Solid("#000") as flicker onlayer master at flicker_once_urgent
     bia "Are you happy now? Fine. I admit it! Maybe I misled Marcus, maybe I lied to our friends! But it doesn’t change the fact that she chose to hide away."
+    show expression Solid("#000") as flicker onlayer master at flicker_once_urgent
     bia "This—"
+    $ renpy.pause(0.2)
+    hide flicker
     "Her words break off. The Bianca you met earlier, confident and poised, has dissolved completely. What’s left is someone frantic and desperate."
     "You withdraw slightly at the sight."
+    show expression Solid("#000") as flicker onlayer master at flicker_once_urgent
     show bia yell with vpunch
     bia "It’s always been mine. This…This was mine to take. Our friends. Marcus—he’s mine!"
-
-    play sound "audio/sfx/doorclick.mp3" volume 0.9
+    stop music fadeout 1.0
+    $ renpy.pause(0.2)
+    hide flicker
+    play sound "audio/sfx/doorclick.mp3" volume 1.0
     "As the words echo in the room. The door at the far back creaks open."
     show bia horrified
     show luc frown at right
     with dissolve
+
+    play music "audio/m_biacutscene.mp3" fadein 1.0 volume 0.4
     luc "Despite everything, you still haven’t changed."
     "Disappointment. It hangs thick in the air. Palpable."
     scene bg c5bigger:
@@ -1939,12 +1999,49 @@ label aftr_cutscene:
     hide bia
     with dissolve
     hide bg_black with dissolve
+    play sound "audio/sfx/lyswalk.mp3" volume 0.8
     "Lysander is the first to separate from the group, moving toward the open door with a quiet finality."
     "You feel a cold chill brush your shoulder. He is suddenly beside you, a hand maneuvering you out of the way but he’s not looking at the door."
     "Before you can dwell on it, he steps past and disappears through the doorway."
+    play sound "audio/sfx/quinnwalk.mp3" volume 0.8
     "Quinn follows, his expression unreadable."
+    play sound "audio/sfx/lucbenwalk.mp3" volume 0.8
     "Lucien moves in next, slow but certain. Benette hesitates at the threshold and then steps in after them."
+    stop sound fadeout 1.0
     "Bianca remains behind, running a hand through her hair, her breath uneven with exasperation."
-    scene black with fade
+    stop music fadeout 1.0
+    $ quick_menu = False
+    scene black with Fade(1.5, 1.0, 0.5)
+    jump epilogue
 
-    
+
+
+# Epilogue
+label epilogue:
+    $ quick_menu = False
+    play sound "audio/sfx/radiostatic.mp3" volume 0.9
+    pause (5)
+    play music "audio/m_blues.mp3" fadein 1.0 volume 0.9
+    scene black with Fade(1.5, 1.0, 0.5)
+    scene epi1 with Dissolve(2.0)
+    pause (5.0)
+    scene epi2-1 with dissolve
+    pause (1.0)
+    scene epi2-2 with dissolve
+    pause (5.0)
+    scene epi3 with dissolve
+    pause (5.0)
+    scene epi4 with Dissolve(2.5)
+    pause (7.0)
+    jump endnote
+
+
+
+# ENDING 'thank you' screen
+label endnote:
+    scene black with Fade(1.5, 0.8, 0.5)
+    show expression "images/ending-note-screen.png" with fade
+    pause
+    scene black with fade
+    stop music fadeout 1.0
+    return

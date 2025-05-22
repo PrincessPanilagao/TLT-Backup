@@ -95,6 +95,13 @@ screen about():
                 text "Hannah" style "member_text" xalign 0.5
                 text "UI Artist" style "body_text" xalign 0.5
                 text "Level Designer" style "body_text" xalign 0.5
+                
+                null height 50
+
+                # MR - Patrice
+                text "Patrice" style "member_text" xalign 0.5
+                text "Item Artist" style "body_text" xalign 0.5
+                text "Sound Designer" style "body_text" xalign 0.5
 
                 null height 50
 
@@ -109,13 +116,6 @@ screen about():
                 text "Sandy" style "member_text" xalign 0.5
                 text "Sprite, BG, CG Artist" style "body_text" xalign 0.5
                 text "Color Designer" style "body_text" xalign 0.5
-            
-                null height 50
-
-                # MR - Patrice
-                text "Patrice" style "member_text" xalign 0.5
-                text "Item Artist" style "body_text" xalign 0.5
-                text "Sound Designer" style "body_text" xalign 0.5
                 
                 null height 120
 
@@ -173,10 +173,9 @@ screen about():
                         action OpenURL("https://x.com/studioshiraya")
                 
                 null height 20
-                text "Official website coming soon!" style "body_text" xalign 0.5
+                text "Visit our official {a=https://www.thelasttoast.carrd.co/} website{/a}" style "body_text" xalign 0.5
+                # text "Official website coming soon!" style "body_text" xalign 0.5
                 # text "Visit our official website {a=https://www.renpy.org/}link here{/a}" style "body_text" xalign 0.5
-                
-                
 
 
 

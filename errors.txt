@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 1912: end of line expected.
-    with dissolve    show bia sneer
-                     ^
+File "game/script.rpy", line 2026: Line is indented, but the preceding image statement statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
+    at fog_slide_down
+    ^
 
 Ren'Py Version: Ren'Py 8.3.7.25031702
-Thu May 22 13:16:37 2025
+Fri May 23 00:16:40 2025
