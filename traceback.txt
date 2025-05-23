@@ -1,30 +1,34 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 2034, in script
-    scene epi4 with Fade(2.5)
-TypeError: Fade() missing 2 required positional arguments: 'hold_time' and 'in_time'
+TypeError: 'bool' object is not subscriptable
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 2034, in script
-    scene epi4 with Fade(2.5)
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\ast.py", line 1374, in execute
-    renpy.exports.with_statement(trans, paired=paired)
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\exports\statementexports.py", line 257, in with_statement
-    return renpy.game.interface.do_with(trans, paired, clear=clear)
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\core.py", line 1581, in do_with
-    return self.interact(trans_pause=True,
+  File "renpy/common/_layout/screen_main_menu.rpym", line 28, in script
+    python hide:
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\ast.py", line 834, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\python.py", line 1187, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "renpy/common/_layout/screen_main_menu.rpym", line 28, in <module>
+    python hide:
+  File "renpy/common/_layout/screen_main_menu.rpym", line 35, in _execute_python_hide
+    ui.interact()
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\ui.py", line 301, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
   File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\core.py", line 2218, in interact
     repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\core.py", line 2669, in interact_core
-    trans = instantiate_transition(None, old_root, layers_root)
-  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\core.py", line 2578, in instantiate_transition
-    trans = self.ongoing_transition[layer](
-TypeError: Fade() missing 2 required positional arguments: 'hold_time' and 'in_time'
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\core.py", line 2769, in interact_core
+    renpy.display.focus.before_interact(focus_roots)
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\display\focus.py", line 514, in before_interact
+    f.unfocus(default=not explicit)
+  File "D:\Schoolworks\Bathspa\CC Year 3 (sem 2)\Creative Incubator\Renpy\renpy-8.3.7-sdk\renpy\text\text.py", line 2482, in unfocus
+    hyperlink_focus = self.style.hyperlink_functions[2]
+TypeError: 'bool' object is not subscriptable
 
 Windows-10-10.0.22631 AMD64
 Ren'Py 8.3.7.25031702
 The Last Toast 1.0
-Fri May 23 00:24:01 2025
+Fri May 23 06:19:37 2025

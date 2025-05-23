@@ -173,14 +173,13 @@ screen about():
                         action OpenURL("https://x.com/studioshiraya")
                 
                 null height 20
-                text "Visit our official {a=https://www.thelasttoast.carrd.co/} website{/a}" style "body_text" xalign 0.5
+                text "Visit our official {a=https://thelasttoast.carrd.co/}website{/a}" style "body_text" xalign 0.5
                 # text "Official website coming soon!" style "body_text" xalign 0.5
                 # text "Visit our official website {a=https://www.renpy.org/}link here{/a}" style "body_text" xalign 0.5
 
 
 
 ## Text Styles
-
 # Logo Name (Hiraya Studios)
 style about_logo_text:
     font "fonts/Sora-Medium.ttf"

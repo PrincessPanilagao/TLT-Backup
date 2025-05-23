@@ -8,27 +8,27 @@
 image splash = "splash-screen.png"
 image disclaimer = "images/disclaimer.png"
 
-# label splashscreen:
-#     scene black
-#     with Pause (1)
+label splashscreen:
+    scene black
+    with Pause (1)
 
-#     show splash with dissolve
-#     with Pause(2)
+    show splash with dissolve
+    with Pause(2)
 
-#     scene black with dissolve
-#     with Pause(1)
+    scene black with dissolve
+    with Pause(1)
 
-#     $ renpy.transition(fade, layer="master")
+    $ renpy.transition(fade, layer="master")
 
-#     # Show disclaimer
-#     show disclaimer
-#     with fade
+    # Show disclaimer
+    show disclaimer
+    with fade
     
-#     pause 15
+    pause 15
 
-#     hide disclaimer
-#     with fade
-#     return
+    hide disclaimer
+    with fade
+    return
 
 ## Prompt Management ##
 init python:
@@ -263,7 +263,7 @@ label act_1:
     # rain effect
     # car shaking
     "The road winds through open fields and towering trees, a light drizzle misting the windows. 
-    You run gloved fingers over the broken De Montfort crest on the invitation you carry."
+    You run gloved fingers over the broken crest on the invitation you carry."
     "The De Montforts, with multiple automobile businesses across the states, stood as a symbol of wealth, influence, and connection."
     "At the head of the family was {b}Edmond Montague De Montfort{/b}, who had two sons: Edmond Quinn and Vincent Augustus."
     "After the tragic, undisclosed death of his daughter, {b}Edmond Quinn{/b}, the eldest son, withdrew from public life, consumed by grief as his wife quietly returned to her family."
@@ -518,13 +518,13 @@ label after_gtk_2:
             bia "We grew up. Priorities shifted. She disappeared on all of us, no goodbye, no explanation."
             bia "Some said she moved to the family’s estate near the coast. Others whispered that she got engaged. Truth is…no one really knows."
             mc "I’m sorry to hear that."
-            mc "...But you know…you remind me a great deal of my sister. Something about the way you carry yourself. The way you dress. It feels…familiar."
+            mc "...But you know…you remind me a great deal of my sister. Something about the way you carry yourself. The way you dress. It feels familiar."
             show bia flirtblush
             "She raises a brow, eyes narrowing slightly with interest. Then, her lips curl into a smirk."
             show bia flirtsmile
             bia "Really?"
             show bia flirtce
-            "She flicks her hair back in a manner that suggests she's fixing it—though nothing is truly out of place."
+            "She flicks her hair back in a manner that suggests she's fixing it though nothing is truly out of place."
             bia "Well, I {i}am{/i} flattered. But I do hope your sister had better taste in friends than I did."
             jump after_gtk_3
         
@@ -544,7 +544,7 @@ label after_gtk_2:
 label after_gtk_3:
     "Bianca finishes her drink, her attention already drifting toward the mingling crowd."
     show bia petulanttalk
-    bia "Enough of the nostalgia. That reminds me… where is our elusive host? I feel like I’ve been here half the evening already."
+    bia "Enough of the nostalgia. That reminds me…where is our elusive host? I feel like I’ve been here half the evening already."
     "She scans the room, eyes narrowing, then waves down a passing figure."
     show bia neutraltalk
     bia "You! Pretty boy—Lux, was it?"
@@ -668,7 +668,7 @@ label after_gtk_3:
     show luc neutraltalk
     luc "Now, let’s not lose our heads. Throwing around accusations won’t help anyone. And for all we know, it could have been an accident."
     show luc neutral
-    show quinn madtalk
+    show quinn enraged
     eq "Oh? What kind of accident melts a man’s face?!"
     hide quinn
     show bia neutraltalk at left
@@ -730,7 +730,7 @@ label after_gtk_3:
 
 label fm_1:
     "You frown. Wait."
-    "The staff...the ones who served you drinks, hovering at the walls… they’re gone."
+    "The staff...the ones who served you drinks, hovering at the walls…they’re gone."
     show bg upperhw with dissolve
     mc "Where are the staff?"
     "Nervous glances dart across the room. The accusations are replaced by the realization that the manor has fallen into eerie silence."
@@ -779,7 +779,7 @@ label second_murder:
     "Your heart lurches. You round the corner—"
 
     "The staff…Lux…all of them lie collapsed on the floor."
-    "No blood. No wounds. Just bodies—still and lifeless."
+    "No blood. No wounds. Just bodies, still and lifeless."
 
     play sound "audio/sfx/fallingtoknees.mp3" volume 0.8
 
@@ -964,8 +964,7 @@ screen invitation_button:
 ## ---Act 2: “Out, damned spot!”---##
 label act_2:
     # CHANGE THIS!!!
-    stop music fadeout 1.0
-    play music "audio/m_mystery2.mp3" fadein 1.0 volume 0.8
+    play music "audio/m_mystery2.mp3" fadein 1.0 fadeout 1.0 volume 0.8
 
     window hide
     $ quick_menu = True
@@ -1100,6 +1099,7 @@ label act_2:
     show bia raisedbrow at center with dissolve
     bia "And you...[mcname], was it? I don’t recall ever seeing you at any of the family’s gatherings."
     show bia eyesnarrowed
+    show quinn neutral
     show luc eyesnarrowed
     bia "What exactly are you to them?"
 
@@ -1231,7 +1231,7 @@ label biasroom:
 
     "The room feels paused in time."
     "The tea set in the far corner still releases gentle steam as if someone had just been pouring a cup seconds before."
-    "The scent of jasmine and lavender lingers in the air, calming. Your shoulders relax without thinking."
+    "The scent of jasmine and lavender lingers in the air. Your shoulders relax without thinking."
     
     scene bg hallway
     show bia petulanttalk at left
@@ -1246,7 +1246,7 @@ label biasroom:
     "She pulls her boa closer, shielding the pause in her expression behind a well-worn smirk."
     hide bia with dissolve
     play sound "audio/sfx/biaheels.mp3" volume 0.1
-    "Without answering, she strides forward, heels tapping against polished wood."
+    "Without answering, she continues on."
 
     scene bg trnocard with dissolve
     stop sound fadeout 1.0
@@ -1274,7 +1274,7 @@ label biasroom:
     hide luc
     hide bia
     with dissolve
-    "Lysander aims for the door in the room."
+    "Lysander aims for the other door in the room."
     play sound "audio/sfx/hittingdoor.mp3" volume 0.11
     "It wouldn’t budge."
     
@@ -1525,15 +1525,15 @@ label sepbia_poster:
     mc "Huh. Look at this."
     "Two young women smile at the portrait."
     "One, with softer features, dressed in a timeless and understated gown. The other—striking in red lipstick and dramatic kohl—wears a daringly cut dress and a smirk you easily recognized."
-    mc "...Was that you, Bianca?"
+    mc "Was that you, Bianca?"
     show bia neutraltalk at left with dissolve
-    bia "That was the summer before Seraphine debutted…We were inseparable then."
+    bia "That was the summer before Seraphine debutted. We were inseparable then."
     hide bia with dissolve
     "They were both smiling in the portrait. Two young women, certain the world would yield to them, so long as they had each other."
     show luc neutraltalk at right with dissolve
     luc "You looked different back then."
     show bia petulanttalk at left with dissolve
-    bia "...Yes, I suppose I did."
+    bia "Yes, I suppose I did."
     show bia neutral
     hide luc with dissolve
     show lys neutraltalk at right with dissolve
@@ -1759,6 +1759,7 @@ label teaset:
             bia "She was everything that I couldn’t be…"
             show bia surprise
             mc "I think she had always saw you as {i}you{/i}. That’s what made this hurt the way it did."
+            show bia frownla with dissolve
             "And for the first time that night…Bianca looks small."
             $ secretroute =+ 1
             hide bia
@@ -1797,7 +1798,7 @@ label bfr_connectmirror:
     show quinn annoyedce at right
     with dissolve
     quinn "We’ve already looked around. What else is there to see?"
-    mc "Sometimes…things don’t reveal themselves directly in the light."
+    mc "Well some things don't reveal themselves directly in the light."
     hide quinn
     show ben surprise at center
     with dissolve
@@ -1824,13 +1825,12 @@ label bfr_connectmirror:
     with dissolve
     luc "It’s reflecting from it..."
     hide luc with dissolve
-    "Your eyes follow moonlight as it bounces off a mirror and points back toward the wall."
+    "Your eyes follow the moonlight as it bounces off a mirror and points back toward the wall."
     "You glance around. And then you see them. Mirrors. Each one carefully tilted and precisely placed, scattered across the furniture."
-    pause (1.0)
     show ben surprise at left with dissolve
     ben "There’s something there…it shines differently…"
     scene bg c1 with dissolve
-    play sound "audio/sfx/mirrorlight/lightmove.mp3" volume 0.12
+    play sound "audio/sfx/mirrorlight/lightmove.mp3" volume 0.08
     "He moves one mirror slightly. The beam shifts."
 
     # start game
@@ -1923,14 +1923,14 @@ label aftr_cutscene:
     show lys mad at left with dissolve
     show bia annoyed
     lys "Jealousy."
-    show bia mad with dissolve
+    show bia mad
     show lys annoyed
     bia "She had everything!"
     show bia grit
     bia "Seraphine had everything and never had to try. People flocked to her like mindless sheep, just because she opened her mouth."
     show luc eyesnarrowed
     "And it’s out."
-    "The truth is raw in the air now. You step back again, searching for anything to cool the tension."
+    "The truth is raw in the air now. You step back, searching for anything to cool the tension."
     hide luc
     hide lys
     show quinn mad at right
@@ -2021,17 +2021,21 @@ label epilogue:
     $ quick_menu = False
     play sound "audio/sfx/radiostatic.mp3" volume 0.9
     pause (5)
-    play music "audio/m_blues.mp3" fadein 1.0 volume 0.9
+    play music "audio/m_blues.mp3" fadein 1.0 volume 0.8
     scene black with Fade(1.5, 1.0, 0.5)
+    play sound "audio/sfx/barsounds.mp3" volume 0.8
     scene epi1 with Dissolve(2.0)
     pause (5.0)
+    play sound "audio/sfx/lightcigar1.mp3" volume 0.85
     scene epi2-1 with dissolve
     pause (1.0)
     scene epi2-2 with dissolve
-    pause (5.0)
+    pause (5.5)
     scene epi3 with dissolve
     pause (5.0)
-    scene epi4 with Dissolve(2.5)
+    play sound "audio/sfx/cigaretteblow.mp3" fadein 1.0 volume 0.85
+    scene epi4 with Dissolve(2.0)
+    stop sound fadeout 1.0
     pause (7.0)
     jump endnote
 

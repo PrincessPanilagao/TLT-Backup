@@ -347,20 +347,28 @@ screen navigation():
                 ypos 316
                 action ShowMenu("help")
 
-        if renpy.variant("pc"):
+        # if renpy.variant("pc"):
 
-            # QUIT
-            ## The quit button is banned on iOS and unnecessary on Android and
-            ## Web.
-            # textbutton _("Quit") action Quit(confirm=not main_menu)
+        #     # QUIT
+        #     ## The quit button is banned on iOS and unnecessary on Android and
+        #     ## Web.
+        #     # textbutton _("Quit") action Quit(confirm=not main_menu)
+        #     imagebutton:
+        #         auto "images/start/quit_%s.png"
+        #         xpos 1204
+        #         ypos 336
+        #         action Quit(confirm=not main_menu)
+
+        # QUIT
+        if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
             imagebutton:
                 auto "images/start/quit_%s.png"
                 xpos 1204
                 ypos 336
-                action Quit(confirm=not main_menu)
-
-
-
+                action (
+                    Quit(confirm=not main_menu) if not renpy.variant("web")
+                    else Preference("display", "window")
+                )
 
         if _in_replay:
 
